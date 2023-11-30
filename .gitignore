@@ -1,0 +1,11 @@
+# Archivos y directorios comunes a ignorar
+.DS_Store
+.idea/
+*.iml
+*.swp
+
+# Específicos para frontend
+node_modules/
+dist/
+.cache/
+package-lock.json
