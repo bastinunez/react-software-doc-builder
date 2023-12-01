@@ -28,9 +28,10 @@ const Universidades = () => {
 
   const getUniversidades = async () => {
     const response = await axios.get(
-      `http://${direccionIP}/universidad/filtro/todas`
+      `http://${direccionIP}/universidad/`
     );
-    setUniversidades(response.data.universidades); // Actualiza el estado con los datos obtenidos
+    console.log(response.data)
+    setUniversidades(response.data.datos); // Actualiza el estado con los datos obtenidos
   };
 
   useEffect(() => {
