@@ -57,10 +57,10 @@ const Login = ({authUser}) => {
                                 "rol_plataforma":response.data.datos.rol_plataforma
                             },
                             rol:{
-                                "nombre": resp_roles.datos[0].atributo.nombreRolUniversidad
+                                "nombre": resp_roles.datos[0].fila.nombreRolUniversidad
                             },
                             universidad:{
-                                "abreviacion": resp_roles.datos[0].atributo.abreviacion
+                                "abreviacion": resp_roles.datos[0].fila.abreviacion
                             }
                         }
                         localStorage.setItem("auth", JSON.stringify(credenciales_usuario));
