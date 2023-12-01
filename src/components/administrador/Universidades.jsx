@@ -123,7 +123,7 @@ const Universidades = () => {
               <div className="p-1">
                 <i className="bi bi-plus-circle"></i>
               </div>
-              <div className="p-1">Agregar universidad (sin funcionar)</div>
+              <div className="p-1">Agregar universidad (funciona pero no muestra mensaje de error, creo que hay que ponerlo en try catch)</div>
             </button>
           </div>
         </div>
