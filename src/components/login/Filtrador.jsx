@@ -10,7 +10,6 @@ import { useAuth } from '../../context/AuthContext';
 function Filtrador() {
     const location = useLocation();
     const {updateAuth} = useAuth();
-    const [rolUniversidad,setRolUniversidad] = useState()
     const [datosRol,setDatosRol] = useState()
     const [rolPorUniversidad,setRolPorUniversidad] = useState([])
     const logo_utalca="/logo-utalca.jpg"
@@ -23,7 +22,6 @@ function Filtrador() {
     // Acceder a la variable datos aquí
 
     function handleRol(item){
-        console.log(datosRol)
         const datos_usuario ={
             usuario: {
                 rut:datosRol.rut,
@@ -33,43 +31,33 @@ function Filtrador() {
                 rol_plataforma:datosRol.rol_plataforma
             },
             rol:{
-                id:item.rol.id,
-                nombre:item.rol.nombre,
-                universidad:item.rol.usuarioUniversidadRoles
+                nombre:item.nombreRolUniversidad
             },
             universidad:{
-                abreviacion: item.universidad.abreviacion,
-                nombre:item.universidad.nombre,
-                estado:item.universidad.estado
+                abreviacion: item.abreviacion
             }
         }
-
         localStorage.setItem("auth", JSON.stringify(datos_usuario));
-        //console.log(datos_usuario)
         localStorage.setItem("logged", true);
         updateAuth(datos_usuario);
-        //console.log("pasa aki primero")
-        if (item.rol.nombre == 'Estudiante'){
+        if (item.nombreRolUniversidad == 'Estudiante'){
             navigate("/estudiante",{replace:true})
         }
-        else if (item.rol.nombre == 'Profesor'){
+        else if (item.nombreRolUniversidad == 'Profesor'){
             navigate("/profesor",{replace:true})
         }
-        else if (item.rol.nombre == 'Jefe de Carrera'){
+        else if (item.nombreRolUniversidad == 'Jefe de Carrera'){
             navigate("/director",{replace:true})
         }
-        else if (item.rol.nombre == 'Administrador'){
+        else if (item.nombreRolUniversidad == 'Administrador'){
             navigate("/administrador",{replace:true})
         }
     }
 
     useEffect( () => {
-        //console.log("roles:",location.state.respuesta.usuarioUniversidadRoles)
-        //setDatosUsuarioRol(location.state.datos.usuarioUniversidadRoles.usuario);
-
         //aqui tengo los roles que tiene un usuario en cada institucion
-        setRolPorUniversidad(location.state.respuesta.usuarioUniversidadRoles)
-        setDatosRol(location.state.respuesta)
+        setRolPorUniversidad(location.state.respuesta)
+        setDatosRol(location.state.datos_usuario)
     },[])
   
     return (
@@ -87,22 +75,21 @@ function Filtrador() {
                             <div className='p-2'>
                                 <Card.Img variant="top" 
                                 src={
-                                    item.universidad.abreviacion == "UTALCA"?
-                                        logo_utalca: item.universidad.abreviacion == "UC"?
-                                            logo_uc : item.universidad.abreviacion == "UCH"?
-                                                logo_uch : item.universidad.abreviacion == "USM"?
+                                    item.abreviacion == "UTALCA"?
+                                        logo_utalca: item.abreviacion == "UC"?
+                                            logo_uc : item.abreviacion == "UCH"?
+                                                logo_uch : item.abreviacion == "USM"?
                                                     logo_usm : logo_ucm
                                 } />
                             </div>
                             <div>
                                 <Card.Body className='bg-transparent text-white'>
                                     <div>
-                                        <h2>{item.universidad.nombre}</h2>
-                                        <h5>{item.rol.nombre}</h5>
+                                        <h2>{item.abreviacion}</h2>
+                                        <h5>{item.nombreRolUniversidad}</h5>
                                     </div>
                                 </Card.Body>
                             </div>
-                            
                         </button>
                     </Card>
                 )) }

@@ -23,138 +23,64 @@ const Login = ({authUser}) => {
         e.preventDefault()
 
         try{
-            //console.log(rutUsuario,contrasenaUsuario)
-            const datos = {
-                rut:rutUsuario,
-                contrasena:contrasenaUsuario
-            }
-            const response = await axios.get(`http://${direccionIP}/usuario/login`,{
-                params: {
-                    rutUsuario,
-                    contrasenaUsuario
-                }
+            const response = await axios.post(`http://${direccionIP}/usuario/login`,{
+                    rut:rutUsuario,
+                    contrasena:contrasenaUsuario
             });
-            //console.log(response.data)
+            console.log(response.data)
             // Verifica si la respuesta es exito
-            if (response.data.exito == true) {
-                const respuesta = response.data.usuario
-                
-                // const datos = {
-                //     rut:'20185866-6',
-                //     nombres:'Bastian',
-                //     apellidos:'Nuñez',
-                //     email:'bastian@estudiante.cl',
-                //     contrasena: "bastian123",
-                //     estado: true,
-                //     rol_plataforma : "Usuario", // Administrador/Usuario
-                //     usuarioUniversidadRoles:[
-                //         //aqui tenemos los roles que puede tener en distintas universidades un usuario
-                //         //en este caso tenemos que un estudiante pertenece a dos universidades
-                //         {
-                //             id:1,
-                //             usuario: {
-                //                 rut:'20185866-6',
-                //                 nombres:'Bastian',
-                //                 apellidos:'Nuñez',
-                //                 email:'bastian@estudiante.cl',
-                //                 contrasena: "bastian123",
-                //                 estado: true,
-                //                 rol_plataforma : "Usuario",
-                //                 usuarioUniversidadRoles: [1]
-                //             },
-                //             universidad: {
-                //                 abreviacion: 'UTALCA',
-                //                 nombre: "Universidad de Talca",
-                //                 estado: true,
-                //                 usuarioUniversidadRoles: [1]
-                //             },
-                //             rol:{
-                //                 id: 3,
-                //                 nombre: 'Estudiante',
-                //                 usuarioUniversidadRoles:[1]
-                //             }
-                //         },
-                //         {
-                //             id:2,
-                //             usuario: {
-                //                 rut:'20185866-6',
-                //                 nombres:'Bastian',
-                //                 apellidos:'Nuñez',
-                //                 email:'bastian@estudiante.cl',
-                //                 contrasena: "bastian123",
-                //                 estado: true,
-                //                 rol_plataforma : "Usuario",
-                //                 usuarioUniversidadRoles: [2]
-                //             },
-                //             universidad: {
-                //                 abreviacion: 'UCM',
-                //                 nombre: "Universidad Católica del Maule",
-                //                 estado: true,
-                //                 usuarioUniversidadRoles: [2]
-                //             },
-                //             rol:{
-                //                 id: 2,
-                //                 nombre: 'Profesor',
-                //                 usuarioUniversidadRoles:[2]
-                //             }
-                //         }
-                //     ],
-                // };
+            if (response.data.datos != "null") {
 
-                setRutUsuario('')
-                setContrasenaUsuario('')
-
-                if (respuesta.rol_plataforma == 'Administrador'){
-                    //console.log("deberia entrar a administrador")
-                    localStorage.setItem("auth", JSON.stringify(respuesta));
+                if (response.data.datos.rol_plataforma == "Administrador"){
+                    localStorage.setItem("auth", JSON.stringify(response.data.datos));
                     localStorage.setItem("logged", true);
-                    updateAuth(respuesta);
+                    updateAuth(response.data.datos);
                     navigate("/administrador",{replace:true})
-                }
-                else{
-                    if (respuesta.usuarioUniversidadRoles.length==1){
-                        const datos_usuario = respuesta.usuarioUniversidadRoles[0]
-                        //significa que el usuario solo tiene un rol en una unica institucion
+                }else{
+                    const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario`,{
+                        rut:rutUsuario
+                    });
+                    setRutUsuario('')
+                    setContrasenaUsuario('')
 
-                        const nuevo_usuario ={
+                    if (resp_roles.data.datos.length <= 1){
+                        const credenciales_usuario = {
                             usuario: {
-                                "rut":respuesta.rut,
-                                "nombres":respuesta.nombres,
-                                "apellidos":respuesta.apellidos,
-                                "email":respuesta.email,
-                                "rol_plataforma":respuesta.rol_plataforma
+                                "rut":response.data.datos.rut,
+                                "nombres":response.data.datos.nombres,
+                                "apellidos":response.data.datos.apellidos,
+                                "email":response.data.datos.email,
+                                "rol_plataforma":response.data.datos.rol_plataforma
                             },
                             rol:{
-                                "id":datos_usuario.rol.id,
-                                "nombre":datos_usuario.rol.nombre,
-                                "universidad":datos_usuario.rol.usuarioUniversidadRoles
+                                "nombre": resp_roles.datos[0].atributo.nombreRolUniversidad
                             },
                             universidad:{
-                                "abreviacion": datos_usuario.universidad.abreviacion,
-                                "nombre":datos_usuario.universidad.nombre,
-                                "estado":datos_usuario.universidad.estado
+                                "abreviacion": resp_roles.datos[0].atributo.abreviacion
                             }
                         }
-                        
-                        //console.log(nuevo_usuario)
-
-                        localStorage.setItem("auth", JSON.stringify(nuevo_usuario));
+                        localStorage.setItem("auth", JSON.stringify(credenciales_usuario));
                         localStorage.setItem("logged", true);
-                        updateAuth(nuevo_usuario);
-                        //console.log("nombre rol:",item.rol.nombre)
-                        if (nuevo_usuario.rol.nombre == 'Estudiante'){
+                        updateAuth(credenciales_usuario);
+                        if (credenciales_usuario.rol.nombre == 'Estudiante'){
                             navigate("/estudiante",{replace:true})
                         }
-                        else if (nuevo_usuario.rol.nombre == 'Profesor'){
+                        else if (credenciales_usuario.rol.nombre == 'Profesor'){
                             navigate("/profesor",{replace:true})
                         }
-                        else if (nuevo_usuario.rol.nombre == 'Jefe de Carrera'){
+                        else if (credenciales_usuario.rol.nombre == 'Jefe de Carrera'){
                             navigate("/director",{replace:true})
                         }
-                    }
-                    else{
-                        navigate("/filtrador",{state:{respuesta},replace:true})
-                    }
+                    }else{
+                        const datos_pre_filtro={
+                                "rut":response.data.datos.rut,
+                                "nombres":response.data.datos.nombres,
+                                "apellidos":response.data.datos.apellidos,
+                                "email":response.data.datos.email,
+                                "rol_plataforma":response.data.datos.rol_plataforma
+                        }
+                        navigate("/filtrador",{state:{datos_usuario:datos_pre_filtro,respuesta:resp_roles.data.datos},replace:true})
+                    }   
                 }
             }
             else{
