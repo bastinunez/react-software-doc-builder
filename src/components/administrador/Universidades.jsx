@@ -42,21 +42,27 @@ const Universidades = () => {
     //Agregar universidad a la base de datos.
     try {
       const response = await axios.patch(
-        `http://${direccionIP}/universidad/deshabilitar/${abreviacion}`
+          `http://${direccionIP}/universidad/cambiar_estado`,
+          {
+            abreviacion: abreviacion,
+            estado: false
+          }
       );
-      
-      if (!response.data.exito) {
-        setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-        setCuerpoModal('Ocurrió un error al deshabilitar la universidad'); 
-        mostrarModal(); 
+
+      if (response.status === 200) {
+        setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
+        setCuerpoModal("Se ha deshabilitado correctamente la universidad");
+        mostrarModal();
+        await getUniversidades()
         return;
       }
-      setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-      setCuerpoModal("Se ha deshabilitado correctamente la universidad");
+      setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+      setCuerpoModal('Ocurrió un error al habilitar la universidad');
       mostrarModal();
-      await getUniversidades();
+      return;
     } catch (error) {
       console.log(error);
+
     }
   };
 
@@ -64,18 +70,23 @@ const Universidades = () => {
     //Agregar universidad a la base de datos.
     try {
       const response = await axios.patch(
-        `http://${direccionIP}/universidad/habilitar/${abreviacion}`
+        `http://${direccionIP}/universidad/cambiar_estado`,
+          {
+            abreviacion: abreviacion,
+            estado: true
+          }
       );
-      if (!response.data.exito) {
-        setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-        setCuerpoModal('Ocurrió un error al habilitar la universidad'); 
-        mostrarModal(); 
+      if (response.status === 200) {
+        setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
+        setCuerpoModal("Se ha habilitado correctamente la universidad");
+        mostrarModal();
+        await getUniversidades()
         return;
       }
-      setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-      setCuerpoModal("Se ha habilitado correctamente la universidad");
+      setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+      setCuerpoModal('Ocurrió un error al habilitar la universidad');
       mostrarModal();
-      await getUniversidades();
+      return;
     } catch (error) {
       console.log(error);
     }
@@ -112,7 +123,7 @@ const Universidades = () => {
               <div className="p-1">
                 <i className="bi bi-plus-circle"></i>
               </div>
-              <div className="p-1">Agregar universidad</div>
+              <div className="p-1">Agregar universidad (sin funcionar)</div>
             </button>
           </div>
         </div>
@@ -123,9 +134,9 @@ const Universidades = () => {
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Abreviación</th>
-                <th>Habilitado</th>
-                <th>Editar</th>
-                <th className="d-flex justify-content-center">Estado</th>
+                <th>Habilitado </th>
+                <th>Editar (funcionando)</th>
+                <th className="d-flex justify-content-center">Estado (funcionando)</th>
               </tr>
             </thead>
             <tbody>
