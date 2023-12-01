@@ -37,11 +37,15 @@ const Login = ({authUser}) => {
                     updateAuth(response.data.datos);
                     navigate("/administrador",{replace:true})
                 }else{
+                    console.log("rut:",rutUsuario)
                     const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario`,{
-                        rut:rutUsuario
+                        params:{
+                            rut:rutUsuario
+                        }
                     });
-                    setRutUsuario('')
-                    setContrasenaUsuario('')
+                    console.log(resp_roles.data.datos)
+                    // setRutUsuario('')
+                    // setContrasenaUsuario('')
 
                     if (resp_roles.data.datos.length <= 1){
                         const credenciales_usuario = {

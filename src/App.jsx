@@ -10,6 +10,7 @@ import VerPerfil from './components/general/VerPerfil';
 //LOGIN
 import Login from './components/login/Login';
 import Filtrador from './components/login/Filtrador';
+import Prueba from './components/login/Prueba';
 
 
 import PrivateRoute from './routes/PrivateRoute';
@@ -89,9 +90,11 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/filtrador' element={<Filtrador />} /> 
+        <Route path='/prueba' element={<Prueba />} />
         <Route path='' element={<PrivateRoute />}>
           <Route element={<Layout/>}>
             <Route index element={<Navigate to={pathRol} />} />
+            
             <Route element={<ProtectRoles roles="Estudiante" />}>
               <Route path='/estudiante' element = {<EstudianteDashboard />}>
                 <Route index element={<Navigate to="bienvenida" />} />
