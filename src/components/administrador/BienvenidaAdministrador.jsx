@@ -23,9 +23,10 @@ const BienvenidaAdministrador = () => {
 
   const getUsuarios = async () => {
     const response = await axios.get(
-      `http://${direccionIP}/usuario/filtro/todos`
+      `http://${direccionIP}/usuario_roluniversidad_universidad/countByUniversidad`
     );
-    const usuariosData = response.data.usuarios;
+    console.log(response.data.filas)
+    const usuariosData = response.data.filas;
 
     // Crear un objeto para almacenar la cantidad de usuarios por universidad
     const usuariosPorUniversidad = {};
@@ -90,7 +91,7 @@ const BienvenidaAdministrador = () => {
           <div className='pb-4 pt-4  d-flex justify-content-around'>
             <div>
               <div>
-                <h2>Usuarios por universidad</h2>
+                <h2>Usuarios por universidad (te paso la consulta con los resultados, mira console log, solo falta formatearlos bien)</h2>
               </div>
               <div>
                 <BarChart width={600} height={300} data={universidades}>
