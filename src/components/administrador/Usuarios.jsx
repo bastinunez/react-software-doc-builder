@@ -28,10 +28,11 @@ const Usuarios = () => {
 
   const getUsuarios = async () => {
     const response = await axios.get(
-      `http://${direccionIP}/usuario/filtro/todos`
+      `http://${direccionIP}/usuario/`
     );
-    setUsuarios(response.data.usuarios); // Actualiza el estado con los datos obtenidos
-    console.log(response.data.usuarios);
+    setUsuarios(response.data.filas); // Actualiza el estado con los datos obtenidos
+    console.log(response.data)
+
   };
 
   useEffect(() => {
@@ -133,7 +134,7 @@ const Usuarios = () => {
               <tr>
                 <th>RUT</th>
                 <th>Nombre Completo</th>
-                <th>Universidad</th>
+                <th>Roles en Universidades</th>
                 <th>Editar</th>
                 <th className="d-flex justify-content-center">Estado</th>
               </tr>
@@ -145,7 +146,10 @@ const Usuarios = () => {
                   <td>
                     {usuario.nombres} {usuario.apellidos}
                   </td>
-                  <td>{usuario.usuarioUniversidadRoles[0]?.universidad?.abreviacion ? usuario.usuarioUniversidadRoles[0]?.universidad?.abreviacion : usuario.usuarioUniversidadRoles[0]?.universidad}
+                  <td>
+                    usar:
+                    'http://${direccionIP}/usuario_roluniversidad_rol/findByUsuario'
+                    pasandole el rut
                   </td>
                   <td>
                     <button
