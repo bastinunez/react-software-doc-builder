@@ -31,7 +31,7 @@ const Universidades = () => {
       `http://${direccionIP}/universidad/`
     );
     console.log(response.data)
-    setUniversidades(response.data.datos); // Actualiza el estado con los datos obtenidos
+    setUniversidades(response.data.filas); // Actualiza el estado con los datos obtenidos
   };
 
   useEffect(() => {
