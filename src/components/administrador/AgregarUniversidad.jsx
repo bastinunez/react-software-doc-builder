@@ -26,20 +26,21 @@ const AgregarUniversidad = () => {
         e.preventDefault()
         //Agregar universidad a la base de datos.
         try{
-            const response = await axios.post(`http://${direccionIP}/universidad`, {
+            const response = await axios.post(`http://${direccionIP}/universidad/guardar`, {
+                abreviacion: abreviacion,
                 nombre: nombreUniversidad,
-                abreviacion
             });
-            if(!response.data.exito){
+
+            if(response.status==409){
                 setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-                setCuerpoModal('Ya existe esa universidad'); 
-                mostrarModal(); 
+                setCuerpoModal('Ya existe esa universidad');
+                mostrarModal();
                 return;
             }
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-            setCuerpoModal(response.data.mensaje); 
+            setCuerpoModal('Universidad guardada exitosamente');
             mostrarModal();
-            console.log(response.data)
+            return;
         }
         catch(error){
             console.log(error)
