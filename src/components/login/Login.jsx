@@ -29,34 +29,38 @@ const Login = ({authUser}) => {
             });
             console.log(response.data)
             // Verifica si la respuesta es exito
-            if (response.data.datos != "null") {
+            if (response.data.filas != "null") {
 
-                if (response.data.datos.rol_plataforma == "Administrador"){
-                    localStorage.setItem("auth", JSON.stringify(response.data.datos));
+                if (response.data.filas.rol_plataforma == "Administrador"){
+                    localStorage.setItem("auth", JSON.stringify(response.data.filas));
                     localStorage.setItem("logged", true);
-                    updateAuth(response.data.datos);
+                    updateAuth(response.data.filas);
                     navigate("/administrador",{replace:true})
                 }else{
+                    console.log("rut:",rutUsuario)
                     const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario`,{
-                        rut:rutUsuario
+                        params:{
+                            rut:rutUsuario
+                        }
                     });
-                    setRutUsuario('')
-                    setContrasenaUsuario('')
+                    console.log(resp_roles.data.filas)
+                    // setRutUsuario('')
+                    // setContrasenaUsuario('')
 
-                    if (resp_roles.data.datos.length <= 1){
+                    if (resp_roles.data.filas.length <= 1){
                         const credenciales_usuario = {
                             usuario: {
-                                "rut":response.data.datos.rut,
-                                "nombres":response.data.datos.nombres,
-                                "apellidos":response.data.datos.apellidos,
-                                "email":response.data.datos.email,
-                                "rol_plataforma":response.data.datos.rol_plataforma
+                                "rut":response.data.filas.rut,
+                                "nombres":response.data.filas.nombres,
+                                "apellidos":response.data.filas.apellidos,
+                                "email":response.data.filas.email,
+                                "rol_plataforma":response.data.filas.rol_plataforma
                             },
                             rol:{
-                                "nombre": resp_roles.datos[0].atributo.nombreRolUniversidad
+                                "nombre": resp_roles.filas[0].fila.nombreRolUniversidad
                             },
                             universidad:{
-                                "abreviacion": resp_roles.datos[0].atributo.abreviacion
+                                "abreviacion": resp_roles.filas[0].fila.abreviacion
                             }
                         }
                         localStorage.setItem("auth", JSON.stringify(credenciales_usuario));
@@ -73,13 +77,13 @@ const Login = ({authUser}) => {
                         }
                     }else{
                         const datos_pre_filtro={
-                                "rut":response.data.datos.rut,
-                                "nombres":response.data.datos.nombres,
-                                "apellidos":response.data.datos.apellidos,
-                                "email":response.data.datos.email,
-                                "rol_plataforma":response.data.datos.rol_plataforma
+                                "rut":response.data.filas.rut,
+                                "nombres":response.data.filas.nombres,
+                                "apellidos":response.data.filas.apellidos,
+                                "email":response.data.filas.email,
+                                "rol_plataforma":response.data.filas.rol_plataforma
                         }
-                        navigate("/filtrador",{state:{datos_usuario:datos_pre_filtro,respuesta:resp_roles.data.datos},replace:true})
+                        navigate("/filtrador",{state:{datos_usuario:datos_pre_filtro,respuesta:resp_roles.data.filas},replace:true})
                     }   
                 }
             }

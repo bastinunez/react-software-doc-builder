@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer} from 'recharts';
 import { useAuth } from '../../context/AuthContext';
 import axios from "axios";
 import { Route, Link, Outlet,useLocation} from 'react-router-dom';
@@ -23,40 +23,15 @@ const BienvenidaAdministrador = () => {
 
   const getUsuarios = async () => {
     const response = await axios.get(
-      `http://${direccionIP}/usuario/filtro/todos`
+      `http://${direccionIP}/usuario_roluniversidad_universidad/countByUniversidad`
     );
-    const usuariosData = response.data.usuarios;
-
-    // Crear un objeto para almacenar la cantidad de usuarios por universidad
-    const usuariosPorUniversidad = {};
-
-    // Contar la cantidad de usuarios por universidad
-    usuariosData.forEach((usuario) => {
-      try {
-        const abreviatura =
-        usuario.usuarioUniversidadRoles[0].universidad.abreviacion;
-
-        if (!usuariosPorUniversidad[abreviatura]) {
-          usuariosPorUniversidad[abreviatura] = 1;
-        } else {
-          usuariosPorUniversidad[abreviatura]++;
-        }
-      } catch (error) {
-        
-      }
-
-    });
-
-    const datosPreprocesados = Object.keys(usuariosPorUniversidad).map(
-      (abreviatura) => ({
-        abreviatura,
-        cantidadUsuarios: usuariosPorUniversidad[abreviatura],
-      })
-    );
-
-    setUsuarios(datosPreprocesados);
-    
-    // console.log(response.data.usuarios[1].usuarioUniversidadRoles[0].universidad.nombre);
+    console.log(response.data.filas)
+    const datosConvertidos = Object.entries(response.data.filas.fila).map(([nombre, cantidad]) => ({
+      nombre,
+      cantidad
+    }));
+    console.log(datosConvertidos)
+    setUsuarios(datosConvertidos);
   };
 
   useEffect(() => {
@@ -92,12 +67,14 @@ const BienvenidaAdministrador = () => {
               <div>
                 <h2>Usuarios por universidad</h2>
               </div>
-              <div>
-                <BarChart width={600} height={300} data={universidades}>
-                  <XAxis dataKey="abreviacion" stroke="#8884d8" />
-                  <YAxis />
-                  <Bar dataKey="cantidadModulos" fill="#8884d8" barSize={30} />
-                </BarChart>
+              <div className=''>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={usuarios}>
+                    <XAxis dataKey="nombre" stroke="#8884d8" />
+                    <YAxis />
+                    <Bar dataKey="cantidad" fill="#8884d8" barSize={40} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
             </div>
             <div>
@@ -105,11 +82,13 @@ const BienvenidaAdministrador = () => {
                 <h2>Modulos por universidad</h2>
               </div>
               <div>
-                <BarChart width={600} height={300} data={universidades}>
-                  <XAxis dataKey="abreviacion" stroke="#8884d8" />
-                  <YAxis />
-                  <Bar dataKey="cantidadModulos" fill="#8884d8" barSize={30} />
-                </BarChart>
+                {/* <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={usuarios}>
+                    <XAxis dataKey="nombre" stroke="#8884d8" />
+                    <YAxis />
+                    <Bar dataKey="cantidad" fill="#8884d8" barSize={30} />
+                  </BarChart>
+                </ResponsiveContainer> */}
               </div>
             </div>
             

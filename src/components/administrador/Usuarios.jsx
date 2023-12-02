@@ -28,10 +28,11 @@ const Usuarios = () => {
 
   const getUsuarios = async () => {
     const response = await axios.get(
-      `http://${direccionIP}/usuario/filtro/todos`
+      `http://${direccionIP}/usuario/`
     );
-    setUsuarios(response.data.usuarios); // Actualiza el estado con los datos obtenidos
-    console.log(response.data.usuarios);
+    setUsuarios(response.data.filas); // Actualiza el estado con los datos obtenidos
+    console.log(response.data)
+
   };
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const Usuarios = () => {
     //Agregar universidad a la base de datos.
     try {
       const response = await axios.patch(
-        `http://${direccionIP}/usuario/habilitar/${rut}`
+        `http://${direccionIP}/usuario/cambiar_estado?rut=${rut}&estado=true`
       );
       console.log(response.data);
       setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Usuario habilitado');
@@ -56,7 +57,7 @@ const Usuarios = () => {
 
   const deshabilitarUsuario = async (rut) => {
     //Agregar universidad a la base de datos.
-    if (rut === "00.000.000-0") {
+    if (rut === "99.999.999-9") {
       setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
       setCuerpoModal("No se puede deshabilitar al usuario administrador");
       mostrarModal();
@@ -64,7 +65,7 @@ const Usuarios = () => {
     }
     try {
       const response = await axios.patch(
-        `http://${direccionIP}/usuario/deshabilitar/${rut}`
+        `http://${direccionIP}/usuario/cambiar_estado?rut=${rut}&estado=false`
       );
       console.log(response.data);
       setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Usuario deshabilitado');
@@ -117,13 +118,13 @@ const Usuarios = () => {
               <div className="p-1">
                 <i className="bi bi-plus-circle"></i>
               </div>
-              <div className="p-1">Agregar usuarios</div>
+              <div className="p-1">Agregar usuarios (falta implementar la misma ruta individual acá)</div>
             </button>
             <button className="btn btn-primary border-0 rounded-2 p-1 d-flex text-white" onClick={irAgregarUsuario} >
               <div className="p-1">
                 <i className="bi bi-plus-circle"></i>
               </div>
-              <div className="p-1">Agregar usuario</div>
+              <div className="p-1">Agregar usuario (funciona)</div>
             </button>
           </div>
         </div>
@@ -133,9 +134,9 @@ const Usuarios = () => {
               <tr>
                 <th>RUT</th>
                 <th>Nombre Completo</th>
-                <th>Universidad</th>
-                <th>Editar</th>
-                <th className="d-flex justify-content-center">Estado</th>
+                <th>Roles en Universidades</th>
+                <th>Editar (pendiente, esta ruta)</th>
+                <th className="d-flex justify-content-center">Estado (funciona)</th>
               </tr>
             </thead>
             <tbody>
@@ -145,7 +146,10 @@ const Usuarios = () => {
                   <td>
                     {usuario.nombres} {usuario.apellidos}
                   </td>
-                  <td>{usuario.usuarioUniversidadRoles[0]?.universidad?.abreviacion ? usuario.usuarioUniversidadRoles[0]?.universidad?.abreviacion : usuario.usuarioUniversidadRoles[0]?.universidad}
+                  <td>
+                    usar:
+                    'http://${direccionIP}/usuario_roluniversidad_rol/findByUsuario'
+                    pasandole el rut
                   </td>
                   <td>
                     <button

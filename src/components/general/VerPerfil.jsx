@@ -21,7 +21,7 @@ const VerPerfil = () => {
 
     const getUsuario = async (e) => {
         try{
-            const response = await axios.get(`http://${direccionIP}/usuario/${authUser.usuario.rut}`);
+            const response = await axios.get(`http://${direccionIP}/usuario/rut/${authUser.usuario.rut}`);
             setUsuario(response.data.usuario)
             setNombre(response.data.usuario.nombres)
             setApellido(response.data.usuario.apellidos)
@@ -35,7 +35,7 @@ const VerPerfil = () => {
 
     const handleSubmit = async (e) =>{
         try{
-            const response = await axios.patch(`http://${direccionIP}/usuario`, {
+            const response = await axios.patch(`http://${direccionIP}/usuario/actualizar`, {
                 rut:usuario.rut,
                 nombres: nombre,
                 apellidos: apellido,

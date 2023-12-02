@@ -28,20 +28,22 @@ const EditarUniversidad = () => {
         e.preventDefault()
         //Agregar universidad a la base de datos.
         try{
-            const response = await axios.patch(`http://${direccionIP}/universidad`, {
+            const response = await axios.patch(`http://${direccionIP}/universidad/actualizar`, {
                 abreviacion: abreviacion,
                 nombre: nombreUniversidad
             });
-            if (!response.data.exito) {
+            const status = response.status;
+            if (status === 200) {
+                setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
+                setCuerpoModal(response.data.mensaje);
+            }else if(status ===  204){
                 setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-                setCuerpoModal('Ocurrió un error al editar la universidad'); 
-                mostrarModal(); 
-                return;
+                setCuerpoModal(response.data.mensaje);
+            }else{
+                setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+                setCuerpoModal('Error inesperado');
             }
-            setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-            setCuerpoModal(response.data.mensaje); 
             mostrarModal();
-            console.log(response.data)
         }
         catch(error){
             console.log(error)

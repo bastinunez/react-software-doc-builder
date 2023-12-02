@@ -31,8 +31,8 @@ const AgregarUsuario = () => {
     useEffect(() => {
         const fetchUniversidades = async () => {
         try {
-            const response = await axios.get(`http://${direccionIP}/universidad/filtro/habilitadas`);
-            setUniversidades(response.data.universidades);
+            const response = await axios.get(`http://${direccionIP}/universidad/habilitadas`);
+            setUniversidades(response.data.filas);
         } catch (error) {
             console.error("Hubo un problema al obtener las universidades: ", error);
         }
@@ -54,35 +54,29 @@ const AgregarUsuario = () => {
 
         //Agregar universidad a la base de datos.
         try{
-            const response = await axios.post('http://localhost:8080/usuario/guardar_con_rol_en_universidad', {
-                rut,
+            const response = await axios.post('http://localhost:8080/usuario/guardar', {
+                rut: rut,
                 nombres: nombresUsuario,
                 apellidos: apellidosUsuario,
                 contrasena: passwordUsuario,
                 email: emailUsuario,
-                rolId,
-                universidadId
+                abreviacionUniversidad: universidadId,
+                idRol: rolId
 
             });
-            if (!response.data.exito) {
-                setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-                setCuerpoModal(response.data.mensaje); 
-                mostrarModal(); 
-                return;   
-            }
+
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-            setCuerpoModal(response.data.mensaje); 
+            setCuerpoModal(response.data.mensaje);
             mostrarModal();
             setRut("");
-            console.log(response.data)
-
-
+            return;
         }
         catch(error){
-            setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>No se pudo agregar el usuario');
-            setCuerpoModal(error); 
+            setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+            setCuerpoModal("Ya existe un usuario con ese rut");
             mostrarModal();
-            console.log(error)
+            setRut("");
+            return;
         }
     }
 

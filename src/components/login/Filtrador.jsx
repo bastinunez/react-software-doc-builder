@@ -22,6 +22,7 @@ function Filtrador() {
     // Acceder a la variable datos aquí
 
     function handleRol(item){
+        console.log(item)
         const datos_usuario ={
             usuario: {
                 rut:datosRol.rut,
@@ -68,25 +69,25 @@ function Filtrador() {
             </div>
         </div>
         <div>
-            <Row xs={1} md={3} className="g-4 m-5 justify-content-center">
-                {rolPorUniversidad.map( (item) => (
-                    <Card style={{ width: '20rem',backgroundColor:"#0d6efd"}} className='border-0 me-5 justify-content-center align-items-center card-hover' key={item.id}>
-                        <button onClick={() => handleRol(item)} className='bg-transparent border-0'>
+            <Row xs={1} md={3} className="g-4 m-4 justify-content-center">
+                {rolPorUniversidad.map( (item,llave) => (
+                    <Card style={{ width: '18rem',backgroundColor:"#0d6efd"}} className='border-0 me-5 justify-content-center align-items-center card-hover' key={llave}>
+                        <button onClick={() => handleRol(item.fila)} className='bg-transparent border-0'>
                             <div className='p-2'>
                                 <Card.Img variant="top" 
                                 src={
-                                    item.abreviacion == "UTALCA"?
-                                        logo_utalca: item.abreviacion == "UC"?
-                                            logo_uc : item.abreviacion == "UCH"?
-                                                logo_uch : item.abreviacion == "USM"?
+                                    item.fila.abreviacion == "UTALCA"?
+                                        logo_utalca: item.fila.abreviacion == "UC"?
+                                            logo_uc : item.fila.abreviacion == "UCH"?
+                                                logo_uch : item.fila.abreviacion == "UTFSM"?
                                                     logo_usm : logo_ucm
                                 } />
                             </div>
                             <div>
                                 <Card.Body className='bg-transparent text-white'>
                                     <div>
-                                        <h2>{item.abreviacion}</h2>
-                                        <h5>{item.nombreRolUniversidad}</h5>
+                                        <h2>{item.fila.abreviacion}</h2>
+                                        <h5>{item.fila.nombreRolUniversidad}</h5>
                                     </div>
                                 </Card.Body>
                             </div>
