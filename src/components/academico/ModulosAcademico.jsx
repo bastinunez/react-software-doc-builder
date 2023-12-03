@@ -4,10 +4,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
-const ModulosEstudiante = () => {
+const ModulosAcademico = () => {
   return (
     <div>
-        <h1>Modulos</h1>
         <div className='d-flex'>
             <div className='d-flex'>
               <div className='align-items-center d-flex'>
@@ -41,4 +40,4 @@ const ModulosEstudiante = () => {
   )
 }
 
-export default ModulosEstudiante
+export default ModulosAcademico

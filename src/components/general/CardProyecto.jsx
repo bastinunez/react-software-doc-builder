@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CardModulo = () => {
+const CardProyecto = () => {
   return (
     <div className=''>
       <button className='estilo-card h-auto'>
@@ -16,4 +16,4 @@ const CardModulo = () => {
   )
 }
 
-export default CardModulo
+export default CardProyecto
