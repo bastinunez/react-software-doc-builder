@@ -42,30 +42,30 @@ const BienvenidaAdministrador = () => {
 
   return (
     <div className='imagen-fondo'>
-      <div className='justify-content-center text-center mb-5 mt-3  p-1'>
+      <div className='justify-content-center text-center mb-5 mt-2  p-1' style={{color:"#7a8584"}}>
         <h1>Te damos la bienvenida {authUser.nombres} {authUser.apellidos}</h1>
       </div>
 
-      <div className='container bordeNegro text-center  mb-5 mt-5 p-1'>
-        <div className='mb-4 pb-2 pt-2'>
+      <div className='container border-0 text-center  mb-3 mt-3 p-1'>
+        <div className='mb-2 pb-2 pt-2 box-titulo-bienvenida'>
           <h3>Acceso rapido</h3>
         </div>
-        <div className='pb-5 pt-5 d-flex justify-content-around'>
+        <div className='pb-3 pt-3 d-flex justify-content-around'>
           <h5 className="d-flex"><Link className='link-acceso-directo' to="administrador/usuarios/agregar-excel"><i className="bi bi-file-earmark-plus me-2"></i>Agregar Usuarios con plantilla</Link></h5>
           <h5 className="d-flex"><Link className='link-acceso-directo' to="administrador/universidades/agregar"><i className="bi bi-plus-square me-2"></i>Agregar Universidad</Link></h5>
           <h5 className="d-flex"><Link className='link-acceso-directo' to="administrador/universidades/editar"><i className="bi bi-pen me-2"></i>Editar Universidad</Link></h5>
         </div>
       </div>
 
-      <div className='bordeNegro'>
+      <div className=''>
         <div className='container text-center mb-3 mt-3 p-1'>
-          <div className='mb-4'>
+          <div className='mb-4  pb-2 pt-2 box-titulo-bienvenida'>
             <h3>Resumen</h3>
           </div>
-          <div className='pb-4 pt-4  d-flex justify-content-around'>
+          <div className='pb-4 pt-3  d-flex justify-content-around'>
             <div>
               <div>
-                <h2>Usuarios por universidad</h2>
+                <h2 style={{color:"#7a8584"}}>Usuarios por universidad</h2>
               </div>
               <div className=''>
                 <ResponsiveContainer width="100%" height={300}>
@@ -79,7 +79,7 @@ const BienvenidaAdministrador = () => {
             </div>
             <div>
               <div>
-                <h2>Modulos por universidad</h2>
+                <h2 style={{color:"#7a8584"}}>Modulos por universidad</h2>
               </div>
               <div>
                 {/* <ResponsiveContainer width="100%" height={300}>

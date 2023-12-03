@@ -42,6 +42,7 @@ import BienvenidoAcademico from './components/academico/BienvenidaAcademico'
 // Estudiante
 import EstudianteDashboard from './components/estudiante/EstudianteDashboard';
 import BienvenidaEstudiante from './components/estudiante/BienvenidaEstudiante';
+import ModulosEstudiante from './components/estudiante/Modulos';
 
 
 function App() {
@@ -90,7 +91,6 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/filtrador' element={<Filtrador />} /> 
-        <Route path='/prueba' element={<Prueba />} />
         <Route path='' element={<PrivateRoute />}>
           <Route element={<Layout/>}>
             <Route index element={<Navigate to={pathRol} />} />
@@ -101,6 +101,7 @@ function App() {
                 <Route path='bienvenida' element= {<BienvenidaEstudiante />}/>
 
                 <Route path='perfil' element = {<VerPerfil />} />
+                <Route path='modulos' element = {<ModulosEstudiante />} />
               </Route>
             </Route>
 
