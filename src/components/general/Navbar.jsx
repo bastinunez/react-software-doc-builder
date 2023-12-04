@@ -4,10 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import {useAuth} from '../../context/AuthContext'
-
+import axios from 'axios';
 
 export const NavBarExport = () => {
-	const {showSidebar,setShowSidebar,authUser, updateAuth} = useAuth()
+	const {filtrador,setShowSidebar,authUser, updateAuth,direccionIP} = useAuth()
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShowSidebar(false);
@@ -23,6 +23,26 @@ export const NavBarExport = () => {
 		navigate('/login', {
 		});
 	};
+	const backFiltrador = async (e) => {
+		try {
+			const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario`,{
+                        params:{
+                            rut:authUser.rut
+                        }
+                    });
+			const datos_pre_filtro={
+				"rut":authUser.rut,
+				"nombres":authUser.nombres,
+				"apellidos":authUser.apellidos,
+				"email":authUser.email,
+				"rol_plataforma":authUser.rol_plataforma
+			}
+			navigate("/filtrador",{state:{datos_usuario:datos_pre_filtro,respuesta:resp_roles.data.filas},replace:true})
+		} catch (error) {
+			console.log(error)
+		}
+		
+	}
 	
 	if (authUser){
 		//console.log(authUser)
@@ -71,10 +91,10 @@ export const NavBarExport = () => {
 		<>
 			<header className='w-100'>
 				<Navbar className='colorPrimario'>
-					<Container className='w-100' style={{maxWidth:"none"}}>
+					<Container className='w-100 p-0 ps-lg-4 pe-lg-4' style={{maxWidth:"none"}}>
 						{
 							authUser ? 
-							<Button variant="primary me-5-lg me-1-xs" className="" onClick={handleShow}>
+							<Button  variant="primary" className="me-lg-3 me-1" onClick={handleShow}>
 								<i className="bi bi-list" ></i>
 								Menu
 							</Button>
@@ -82,28 +102,39 @@ export const NavBarExport = () => {
 							<></>
 						}
 						
-						<Navbar.Brand href={pathRol}>LOGO</Navbar.Brand>
+						<Navbar.Brand href={pathRol} className="ms-lg-2 ms-1">LOGO</Navbar.Brand>
 						<Navbar.Toggle></Navbar.Toggle>
 						<Navbar.Collapse className="justify-content-end">
 							<div>
 								{authUser ? (
-									<div className='container user d-flex'>
-										<div className='ms-3 me-3 align-items-center d-flex'>
+									<div className='container d-flex w-100'>
+										{
+											filtrador? 
+												<div className='ms-lg-3 me-lg-3 justify-content-end d-flex'>
+													<Button className='boton-logout' onClick={backFiltrador}>Volver a Filtrador</Button>{' '}
+												</div>
+												:
+												<></>
+										}
+										<div className='ms-lg-3 me-lg-3 me-2 align-items-center d-flex'>
 											<Navbar.Text>
-												<span className='username'>Usuario: { authUser?.rol_plataforma == 'Administrador'  ? 
-												`${authUser.nombres} ${authUser.apellidos}` : `${authUser.usuario.nombres} ${authUser.usuario.apellidos}`}</span>
+												<span className='username'>
+													<i className="bi bi-person-square me-2 me-xs-1"></i>
+													{ authUser?.rol_plataforma == 'Administrador'  ? `${authUser.nombres}`
+													: `${authUser.usuario.nombres}`}
+													</span>
 											</Navbar.Text>
 											{
 												authUser?.rol_plataforma != 'Administrador'?
-												<Navbar.Text className='ms-5'>
-													<span className='username'>Universidad: {authUser.universidad.abreviacion} </span>
+												<Navbar.Text className='ms-2 ms-lg-5'>
+													<span className='username'><i className="bi bi-mortarboard-fill  me-2 me-xs-1"></i> {authUser.universidad.abreviacion} </span>
 												</Navbar.Text>
 												:
 												<></>
 											}
 											
 										</div>
-										<div className='ms-3 me-3'>
+										<div className='ms-lg-3 me-lg-3 justify-content-end d-flex'>
 											<Button className='boton-logout' onClick={onLogout}>Cerrar sesión</Button>{' '}
 										</div>
 									</div>

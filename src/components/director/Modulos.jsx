@@ -99,7 +99,7 @@ export const Modulos = () => {
 
   return (
     <div>
-      <div className="pt-2 pb-5">
+      <div className="pt-2 pb-3">
         <h1 className="text-center">Gestion de Módulos</h1>
       </div>
       <div>

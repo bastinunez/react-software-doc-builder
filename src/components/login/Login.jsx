@@ -43,7 +43,7 @@ const Login = ({authUser}) => {
                             rut:rutUsuario
                         }
                     });
-                    console.log(resp_roles.data.filas)
+                    //console.log(resp_roles.data.filas)
                     // setRutUsuario('')
                     // setContrasenaUsuario('')
 

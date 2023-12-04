@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 
 function Filtrador() {
     const location = useLocation();
-    const {updateAuth} = useAuth();
+    const {updateAuth,setFiltrador} = useAuth();
     const [datosRol,setDatosRol] = useState()
     const [rolPorUniversidad,setRolPorUniversidad] = useState([])
     const logo_utalca="/logo-utalca.jpg"
@@ -22,7 +22,7 @@ function Filtrador() {
     // Acceder a la variable datos aquí
 
     function handleRol(item){
-        console.log(item)
+        //console.log(item)
         const datos_usuario ={
             usuario: {
                 rut:datosRol.rut,
@@ -38,20 +38,22 @@ function Filtrador() {
                 abreviacion: item.abreviacion
             }
         }
+        setFiltrador(true)
         localStorage.setItem("auth", JSON.stringify(datos_usuario));
         localStorage.setItem("logged", true);
+        localStorage.setItem("filtrador",true)
         updateAuth(datos_usuario);
         if (item.nombreRolUniversidad == 'Estudiante'){
-            navigate("/estudiante",{replace:true,state:{filtrador:true}})
+            navigate("/estudiante",{replace:true})
         }
         else if (item.nombreRolUniversidad == 'Profesor'){
-            navigate("/profesor",{replace:true,state:{filtrador:true}})
+            navigate("/profesor",{replace:true})
         }
         else if (item.nombreRolUniversidad == 'Jefe de Carrera'){
-            navigate("/director",{replace:true,state:{filtrador:true}})
+            navigate("/director",{replace:true})
         }
         else if (item.nombreRolUniversidad == 'Administrador'){
-            navigate("/administrador",{replace:true,state:{filtrador:true}})
+            navigate("/administrador",{replace:true})
         }
     }
 
@@ -62,16 +64,16 @@ function Filtrador() {
     },[])
   
     return (
-      <div>
+      <div className='imagen-fondo container'>
         <div className='mt-5'>
-            <div className='pt-2 pb-5'>
+            <div className='box-titulo-bienvenida'>
                 <h1 className='text-center'>¿Cómo desea iniciar sesión?</h1>
             </div>
         </div>
         <div>
             <Row xs={1} md={3} className="g-4 m-4 justify-content-center">
                 {rolPorUniversidad.map( (item,llave) => (
-                    <Card style={{ width: '18rem',backgroundColor:"#0d6efd"}} className='border-0 me-5 justify-content-center align-items-center card-hover' key={llave}>
+                    <Card style={{ width: '18rem',backgroundColor:"#0d6efd"}} className='border-0 m-2 justify-content-center align-items-center card-hover' key={llave}>
                         <button onClick={() => handleRol(item.fila)} className='bg-transparent border-0'>
                             <div className='p-2'>
                                 <Card.Img variant="top" 
