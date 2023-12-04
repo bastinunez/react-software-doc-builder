@@ -252,3 +252,8 @@ h3{
   grid-row: 2;
   height: min-content;
 }
+@media screen and (max-width:575.98px) {
+  .texto-volver-filtrador{
+    display: none;
+  }
+}
