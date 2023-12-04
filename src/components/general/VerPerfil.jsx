@@ -83,7 +83,7 @@ const VerPerfil = () => {
                     <Form onSubmit={handleSubmit}> 
                         <Row>
                             
-                                <Form.Group className="mb-3 w-25" controlId="form-rut">
+                                <Form.Group className="mb-3" controlId="form-rut" style={{maxWidth:"150px"}}>
                                     <Form.Label>Rut</Form.Label>
                                     {/* <Form.Label>{authUser.usuario.rut}</Form.Label> */}
                                     <Form.Control disabled type="text" placeholder={authUser.usuario.rut} defaultValue={rut}/>

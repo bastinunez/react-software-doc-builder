@@ -17,9 +17,9 @@ const BienvenidaEstudiante = () => {
           <h3>Acceso rapido</h3>
         </div>
         <div className='pb-3 pt-3 d-flex justify-content-around'>
-          <h5 className="d-flex"><Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Ver mis cursos</Link></h5>
-          <h5 className="d-flex"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Acceso Directo 2</Link></h5>
-          <h5 className="d-flex"><Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Acceso Directo 3</Link></h5>
+          <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Ver mis cursos</Link></h5>
+          <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Acceso Directo 2</Link></h5>
+          <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Acceso Directo 3</Link></h5>
         </div>
       </div>
 
@@ -30,7 +30,7 @@ const BienvenidaEstudiante = () => {
           </div>
           <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
             <Row xs={1} md={1} lg={2} className='m-3 g-5'>
-              <Col>
+              <Col className='mb-4'>
                 <div>
                   <div>
                     <h2 style={{color:"#7a8584"}}>Modulos inscritos</h2>
@@ -46,14 +46,14 @@ const BienvenidaEstudiante = () => {
                   </div>
                 </div>
               </Col>
-              <Col>
+              <Col className='mb-4'>
                 <div>
                   <div>
                     <h2 style={{color:"#7a8584"}}>Notificaciones</h2>
                   </div>
                   <div>
                     <div>
-                      <i class="bi bi-bell" style={{fontSize: "3rem"}}></i>
+                      <i className="bi bi-bell" style={{fontSize: "3rem"}}></i>
                     </div>
                     <div>
                       Tienes X notificaciones de proyectos

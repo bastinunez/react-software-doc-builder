@@ -68,7 +68,9 @@ button:focus-visible {
   }
 } 
 */
-
+body{
+  min-height: 100%;
+}
 .colorPrimario{
   background-color: #0d6efd;
 }
@@ -191,12 +193,23 @@ h3{
   width: 100%;
   display: flex;
   color: #7a8584;
-  max-height: 3.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%; /* Ajusta el ancho según tus necesidades */
 }
 .link-acceso-directo:hover{
   color: #fff;
   background-color: #B1C1C0;
 }
+.texto-restringido {
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  white-space: nowrap;   /* Evitar que el texto se rompa */
+  overflow: hidden;      /* Ocultar el exceso de texto */
+  text-overflow: ellipsis;  /* Mostrar puntos suspensivos cuando el texto se corta */
+}
+
 .imagen-fondo{
   background-image: url('/fondo_bienvenida.png');
   background-size: cover;

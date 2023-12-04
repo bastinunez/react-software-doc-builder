@@ -19,13 +19,13 @@ const BienvenidaAcademico = () => {
         <div className='pb-3 pt-1 justify-content-around'>
           <Row xs={1} md={2} lg={3} className='m-3 g-3'>
             <Col>
-              <h5 className="d-flex"><Link className='link-acceso-directo' to="director/instancias/agregar"><i className="bi bi-patch-plus me-2"></i>Agregar Instancia de Módulo</Link></h5>
+              <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="director/instancias/agregar"><i className="bi bi-patch-plus me-2"></i>Agregar Instancia de Módulo</Link></h5>
             </Col>
             <Col>
-              <h5 className="d-flex"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Ver usuarios</Link></h5>
+              <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Ver usuarios</Link></h5>
             </Col>
             <Col>
-              <h5 className="d-flex"><Link className='link-acceso-directo' to="director/instancias"><i className="bi bi-card-checklist me-2"></i>Ver instancias</Link></h5>
+              <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="director/instancias"><i className="bi bi-card-checklist me-2"></i>Ver instancias</Link></h5>
             </Col>
           </Row>
         </div>
@@ -37,8 +37,8 @@ const BienvenidaAcademico = () => {
             <h3>Resumen</h3>
           </div>
           <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
-            <Row xs={1} md={1} lg={2} className='m-0 g-5'>
-              <Col>
+            <Row xs={1} md={1} lg={2} className='m-3 g-5 w-100'>
+              <Col className='mb-4'>
                 <div>
                   <div>
                     <h2 style={{color:"#7a8584"}}>Modulos Inscritos</h2>
@@ -54,7 +54,7 @@ const BienvenidaAcademico = () => {
                   </div>
                 </div>
               </Col>
-              <Col>
+              <Col className='mb-4'>
                 <div>
                   <div>
                     <h2 style={{color:"#7a8584"}}>Notificaciones</h2>

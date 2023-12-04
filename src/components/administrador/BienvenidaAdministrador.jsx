@@ -53,13 +53,13 @@ const BienvenidaAdministrador = () => {
         <div className='pb-3 pt-1 justify-content-around'>
           <Row xs={1} md={2} lg={3} className='m-3 g-3'>
             <Col  className='justify-content-center'>
-              <div className="d-flex overflow-hidden"><Link className='link-acceso-directo' to="administrador/usuarios/agregar-excel"><i className="bi bi-file-earmark-plus me-2"></i>Agregar Usuarios con plantilla</Link></div>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="administrador/usuarios/agregar-excel"><i className="bi bi-file-earmark-plus me-2"></i>Agregar Usuarios con plantilla</Link></div>
             </Col>
             <Col>
-              <div className="d-flex overflow-hidden"><Link className='link-acceso-directo' to="administrador/universidades/agregar"><i className="bi bi-plus-square me-2"></i>Agregar Universidad</Link></div>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="administrador/universidades/agregar"><i className="bi bi-plus-square me-2"></i>Agregar Universidad</Link></div>
             </Col>
             <Col>
-            <div className="d-flex overflow-hidden"><Link className='link-acceso-directo' to="administrador/universidades/editar"><i className="bi bi-pen me-2"></i>Editar Universidad</Link></div>
+            <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="administrador/universidades/editar"><i className="bi bi-pen me-2"></i>Editar Universidad</Link></div>
             </Col>
           </Row>
         </div>
@@ -72,7 +72,7 @@ const BienvenidaAdministrador = () => {
           </div>
           <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
             <Row xs={1} md={1} lg={2} className='m-3 g-5'>
-              <Col>
+              <Col className='mb-4'>
                 <div>
                   <div>
                     <h2 style={{color:"#7a8584"}}>Usuarios por universidad</h2>
@@ -88,7 +88,7 @@ const BienvenidaAdministrador = () => {
                   </div>
                 </div>
               </Col>
-            <Col>
+            <Col className='mb-4'>
               <div>
                   <div>
                     <h2 style={{color:"#7a8584"}}>Modulos por universidad</h2>
