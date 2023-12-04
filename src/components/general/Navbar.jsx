@@ -25,18 +25,16 @@ export const NavBarExport = () => {
 	};
 	const backFiltrador = async (e) => {
 		try {
-			const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario`,{
-                        params:{
-                            rut:authUser.rut
-                        }
-                    });
+			//console.log("rut:",authUser.usuario.rut)
+			const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario?rut=${authUser.usuario.rut}`);
 			const datos_pre_filtro={
-				"rut":authUser.rut,
-				"nombres":authUser.nombres,
-				"apellidos":authUser.apellidos,
-				"email":authUser.email,
-				"rol_plataforma":authUser.rol_plataforma
+				"rut":authUser.usuario.rut,
+				"nombres":authUser.usuario.nombres,
+				"apellidos":authUser.usuario.apellidos,
+				"email":authUser.usuario.email,
+				"rol_plataforma":authUser.usuario.rol_plataforma
 			}
+			//console.log(resp_roles.data)
 			navigate("/filtrador",{state:{datos_usuario:datos_pre_filtro,respuesta:resp_roles.data.filas},replace:true})
 		} catch (error) {
 			console.log(error)
@@ -110,29 +108,31 @@ export const NavBarExport = () => {
 									<div className='container d-flex w-100'>
 										{
 											filtrador? 
-												<div className='ms-lg-3 me-lg-3 justify-content-end d-flex'>
-													<Button className='boton-logout' onClick={backFiltrador}>Volver a Filtrador</Button>{' '}
+												<div className='align-items-center d-flex me-lg-2 me-1'>
+													<Button className='boton-logout d-flex align-items-center' onClick={backFiltrador}>
+														<i className="bi bi-arrow-left-circle-fill me-1"></i>
+														<p className='texto-volver-filtrador align-items-center p-0 m-0'>Volver a Filtrador</p>
+													</Button>{' '}
 												</div>
 												:
 												<></>
 										}
-										<div className='ms-lg-3 me-lg-3 me-2 align-items-center d-flex'>
+										<div className='ms-lg-3 me-lg-3 me-1 align-items-center d-flex'>
 											<Navbar.Text>
 												<span className='username'>
-													<i className="bi bi-person-square me-2 me-xs-1"></i>
+													<i className="bi bi-person-square me-xs-1"></i>
 													{ authUser?.rol_plataforma == 'Administrador'  ? `${authUser.nombres}`
 													: `${authUser.usuario.nombres}`}
 													</span>
 											</Navbar.Text>
 											{
 												authUser?.rol_plataforma != 'Administrador'?
-												<Navbar.Text className='ms-2 ms-lg-5'>
-													<span className='username'><i className="bi bi-mortarboard-fill  me-2 me-xs-1"></i> {authUser.universidad.abreviacion} </span>
-												</Navbar.Text>
+													<Navbar.Text className='ms-lg-5'>
+														<span className='username'><i className="bi bi-mortarboard-fill  me-2 me-xs-1"></i> {authUser.universidad.abreviacion} </span>
+													</Navbar.Text>
 												:
 												<></>
 											}
-											
 										</div>
 										<div className='ms-lg-3 me-lg-3 justify-content-end d-flex'>
 											<Button className='boton-logout' onClick={onLogout}>Cerrar sesión</Button>{' '}
