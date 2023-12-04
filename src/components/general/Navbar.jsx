@@ -120,10 +120,10 @@ export const NavBarExport = () => {
 										<div className='ms-lg-3 me-lg-3 me-1 align-items-center d-flex'>
 											<Navbar.Text>
 												<span className='username'>
-													<i className="bi bi-person-square me-xs-1"></i>
+													<i className="bi bi-person-square me-2 me-xs-1"></i>
 													{ authUser?.rol_plataforma == 'Administrador'  ? `${authUser.nombres}`
 													: `${authUser.usuario.nombres}`}
-													</span>
+												</span>
 											</Navbar.Text>
 											{
 												authUser?.rol_plataforma != 'Administrador'?
