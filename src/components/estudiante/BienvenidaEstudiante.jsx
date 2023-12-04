@@ -1,6 +1,8 @@
 import React from 'react'
 import { useAuth } from '../../context/AuthContext';
 import { Route, Link, Outlet,useLocation} from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const BienvenidaEstudiante = () => {
     const {showSidebar,setShowSidebar, authUser,direccionIP} = useAuth()
@@ -11,7 +13,7 @@ const BienvenidaEstudiante = () => {
       </div>
 
       <div className='container border-0 text-center  mb-3 mt-3 p-1'>
-        <div className='mb-2 pb-2 pt-2 box-titulo-bienvenida'>
+        <div className='box-titulo-bienvenida'>
           <h3>Acceso rapido</h3>
         </div>
         <div className='pb-3 pt-3 d-flex justify-content-around'>
@@ -23,37 +25,43 @@ const BienvenidaEstudiante = () => {
 
       <div className=''>
         <div className='container text-center mb-3 mt-3 p-1'>
-          <div className='mb-4  pb-2 pt-2 box-titulo-bienvenida'>
+          <div className='box-titulo-bienvenida'>
             <h3>Resumen</h3>
           </div>
-          <div className='pb-4 pt-3  d-flex justify-content-around'>
-            <div>
-              <div>
-                <h2 style={{color:"#7a8584"}}>Modulos inscritos</h2>
-              </div>
-              <div>
-                {/* <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={usuarios}>
-                    <XAxis dataKey="nombre" stroke="#8884d8" />
-                    <YAxis />
-                    <Bar dataKey="cantidad" fill="#8884d8" barSize={30} />
-                  </BarChart>
-                </ResponsiveContainer> */}
-              </div>
-            </div>
-            <div>
-              <div>
-                <h2 style={{color:"#7a8584"}}>Notificaciones</h2>
-              </div>
-              <div>
+          <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
+            <Row xs={1} md={1} lg={2} className='m-3 g-5'>
+              <Col>
                 <div>
-                  <i class="bi bi-bell" style={{fontSize: "3rem"}}></i>
+                  <div>
+                    <h2 style={{color:"#7a8584"}}>Modulos inscritos</h2>
+                  </div>
+                  <div>
+                    {/* <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={usuarios}>
+                        <XAxis dataKey="nombre" stroke="#8884d8" />
+                        <YAxis />
+                        <Bar dataKey="cantidad" fill="#8884d8" barSize={30} />
+                      </BarChart>
+                    </ResponsiveContainer> */}
+                  </div>
                 </div>
+              </Col>
+              <Col>
                 <div>
-                  Tienes X notificaciones de proyectos
+                  <div>
+                    <h2 style={{color:"#7a8584"}}>Notificaciones</h2>
+                  </div>
+                  <div>
+                    <div>
+                      <i class="bi bi-bell" style={{fontSize: "3rem"}}></i>
+                    </div>
+                    <div>
+                      Tienes X notificaciones de proyectos
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </Col>
+            </Row>
           </div>
         </div>
       </div>

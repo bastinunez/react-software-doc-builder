@@ -42,16 +42,16 @@ function Filtrador() {
         localStorage.setItem("logged", true);
         updateAuth(datos_usuario);
         if (item.nombreRolUniversidad == 'Estudiante'){
-            navigate("/estudiante",{replace:true})
+            navigate("/estudiante",{replace:true,state:{filtrador:true}})
         }
         else if (item.nombreRolUniversidad == 'Profesor'){
-            navigate("/profesor",{replace:true})
+            navigate("/profesor",{replace:true,state:{filtrador:true}})
         }
         else if (item.nombreRolUniversidad == 'Jefe de Carrera'){
-            navigate("/director",{replace:true})
+            navigate("/director",{replace:true,state:{filtrador:true}})
         }
         else if (item.nombreRolUniversidad == 'Administrador'){
-            navigate("/administrador",{replace:true})
+            navigate("/administrador",{replace:true,state:{filtrador:true}})
         }
     }
 
