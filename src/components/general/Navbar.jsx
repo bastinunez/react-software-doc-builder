@@ -74,7 +74,7 @@ export const NavBarExport = () => {
 					<Container className='w-100' style={{maxWidth:"none"}}>
 						{
 							authUser ? 
-							<Button variant="primary me-5" className="" onClick={handleShow}>
+							<Button variant="primary me-5-lg me-1-xs" className="" onClick={handleShow}>
 								<i className="bi bi-list" ></i>
 								Menu
 							</Button>
@@ -87,7 +87,7 @@ export const NavBarExport = () => {
 						<Navbar.Collapse className="justify-content-end">
 							<div>
 								{authUser ? (
-									<div className='user d-flex'>
+									<div className='container user d-flex'>
 										<div className='ms-3 me-3 align-items-center d-flex'>
 											<Navbar.Text>
 												<span className='username'>Usuario: { authUser?.rol_plataforma == 'Administrador'  ? 

@@ -30,10 +30,10 @@ const AgregarModulo = () => {
 
         //Agregar universidad a la base de datos.
         try{
-            const response = await axios.post(`http://${direccionIP}/universidad/agregar_modulo_universidad`, {
-                abreviacionUniversidad:location.state.abreviacion,
+            const response = await axios.post(`http://${direccionIP}/modulo/guardar`, {
                 nombreModulo:nombre,
                 descripcionModulo: descripcion,
+                abreviacionUniversidad:location.state.abreviacion
             });
             setCuerpoModal(response.data.mensaje); 
             mostrarModal();

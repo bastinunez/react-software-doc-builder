@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import {useAuth} from '../../context/AuthContext'
 import axios from 'axios';
 import { useEffect } from 'react';
+import {getUsuario,actualizarPerfil} from '../general/Consultas'
 
 
 const VerPerfil = () => {
@@ -19,13 +20,15 @@ const VerPerfil = () => {
     const [apellido,setApellido] = useState()
 
 
-    const getUsuario = async (e) => {
+    const getUsuario = async () => {
         try{
             const response = await axios.get(`http://${direccionIP}/usuario/rut/${authUser.usuario.rut}`);
-            setUsuario(response.data.usuario)
-            setNombre(response.data.usuario.nombres)
-            setApellido(response.data.usuario.apellidos)
-            console.log(response.data.usuario)
+            if (response.data.filas){
+                setUsuario(response.data.filas)
+                setNombre(response.data.filas.nombres)
+                setApellido(response.data.filas.apellidos)
+                setRut(response.data.filas.rut)
+            }
         }
         catch(error){
             console.log(error)
@@ -34,9 +37,10 @@ const VerPerfil = () => {
     }
 
     const handleSubmit = async (e) =>{
+        e.preventDefault()
         try{
             const response = await axios.patch(`http://${direccionIP}/usuario/actualizar`, {
-                rut:usuario.rut,
+                rut:rut,
                 nombres: nombre,
                 apellidos: apellido,
                 contrasena: usuario.contrasena,
@@ -45,11 +49,16 @@ const VerPerfil = () => {
             console.log(response.data)
         }
         catch(error){
+            console.log(error)
         }
     }
     
     useEffect( () => {
         getUsuario();
+        // const respuesta = getUsuario();
+        // setUsuario(respuesta)
+        // setNombre(respuesta.nombres)
+        // setApellido(respuesta.apellidos)
     },[])
 
 
@@ -76,7 +85,8 @@ const VerPerfil = () => {
                             
                                 <Form.Group className="mb-3 w-25" controlId="form-rut">
                                     <Form.Label>Rut</Form.Label>
-                                    <Form.Control disabled type="text" placeholder={authUser.usuario.rut} value={authUser.usuario.rut} onChange={(e) => setRut(e.target.value)}/>
+                                    {/* <Form.Label>{authUser.usuario.rut}</Form.Label> */}
+                                    <Form.Control disabled type="text" placeholder={authUser.usuario.rut} defaultValue={rut}/>
                                 </Form.Group>
                             
                         </Row>
@@ -84,13 +94,13 @@ const VerPerfil = () => {
                             <Col>
                                 <Form.Group className="mb-3" controlId="form-nombre">
                                     <Form.Label>Nombre</Form.Label>
-                                    <Form.Control type="text" placeholder={authUser.usuario.nombres} value={nombre} onChange={(e) => setNombre(e.target.value)}/>
+                                    <Form.Control type="text" placeholder={authUser.usuario.nombres} defaultValue={nombre} onChange={(e) => setNombre(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="form-apellido">
                                     <Form.Label>Apellido</Form.Label>
-                                    <Form.Control type="text" placeholder={authUser.usuario.apellidos} value={apellido} onChange={(e) => setApellido(e.target.value)}/>
+                                    <Form.Control type="text" placeholder={authUser.usuario.apellidos} defaultValue={apellido} onChange={(e) => setApellido(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                         </Row>

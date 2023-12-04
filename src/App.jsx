@@ -39,9 +39,14 @@ import AgregarModulo from './components/director/AgregarModulo';
 // Academico
 import AcademicoDashboard from './components/academico/AcademicoDashboard'
 import BienvenidoAcademico from './components/academico/BienvenidaAcademico'
+import ModulosAcademico from './components/academico/ModulosAcademico'
+import ProyectosAcademico from './components/academico/ProyectosAcademico'
+
 // Estudiante
 import EstudianteDashboard from './components/estudiante/EstudianteDashboard';
 import BienvenidaEstudiante from './components/estudiante/BienvenidaEstudiante';
+import ModulosEstudiante from './components/estudiante/Modulos';
+import ProyectosEstudiante from './components/estudiante/ProyectosEstudiante';
 
 
 function App() {
@@ -90,7 +95,6 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/filtrador' element={<Filtrador />} /> 
-        <Route path='/prueba' element={<Prueba />} />
         <Route path='' element={<PrivateRoute />}>
           <Route element={<Layout/>}>
             <Route index element={<Navigate to={pathRol} />} />
@@ -101,6 +105,8 @@ function App() {
                 <Route path='bienvenida' element= {<BienvenidaEstudiante />}/>
 
                 <Route path='perfil' element = {<VerPerfil />} />
+                <Route path='modulos' element = {<ModulosEstudiante />} />
+                <Route path='modulos/proyectos' element = {<ProyectosEstudiante />} />
               </Route>
             </Route>
 
@@ -110,6 +116,8 @@ function App() {
                 <Route path='bienvenida' element= {<BienvenidoAcademico />}/>
 
                 <Route path='perfil' element = {<VerPerfil />} />
+                <Route path='modulos' element = {<ModulosAcademico />}/>
+                <Route path='modulos/proyectos' element = {<ProyectosAcademico />} />
               </Route> 
             </Route>
 
