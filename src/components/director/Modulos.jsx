@@ -25,16 +25,17 @@ export const Modulos = () => {
     setCurrentPage(page);
   };
   
-  const getModulos = async () => {
-    const uni = authUser.universidad.abreviacion;
-    const response = await axios.get(
-      `http://${direccionIP}/universidad/${uni}`
+  const getModulosUniversidad = async () => {
+    const response = await axios.get( `http://${direccionIP}/modulo/busqueda_por_universidad`,{
+        abreviacion:authUser.universidad.abreviacion
+      }
     );
-    setModulos(response.data.universidad.modulos); // Actualiza el estado con los datos obtenidos
+    console.log(response.data)
+    setModulos(response.data.filas); // Actualiza el estado con los datos obtenidos
   };
 
   useEffect(() => {
-    getModulos();
+    getModulosUniversidad();
   }, []);
 
   const deshabilitarMódulo = async (abreviacion,modulo,estado) => {
@@ -52,7 +53,7 @@ export const Modulos = () => {
       //console.log(response.data);
       setCuerpoModal("Se ha deshabilitado correctamente el Módulo");
       mostrarModal();
-      await getModulos();
+      await getModulosUniversidad();
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +74,7 @@ export const Modulos = () => {
       //console.log(response.data);
       setCuerpoModal("Se ha habilitado correctamente la universidad");
       mostrarModal();
-      await getModulos();
+      await getModulosUniversidad();
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +99,7 @@ export const Modulos = () => {
 
   return (
     <div>
-      <div className="pt-2 pb-5">
+      <div className="pt-2 pb-3">
         <h1 className="text-center">Gestion de Módulos</h1>
       </div>
       <div>

@@ -1,120 +1,110 @@
 import React,{useState,useEffect} from 'react'
-import { BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer} from 'recharts';
 import { useAuth } from '../../context/AuthContext';
 import axios from "axios";
 import { Route, Link, Outlet,useLocation} from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 const BienvenidaAdministrador = () => {
   const {showSidebar,setShowSidebar, authUser,direccionIP} = useAuth()
-  const [universidades, setUniversidades] = useState([]);
+  const [modulos, setModulos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   let datosPreprocesados;
 
-  const getUniversidades = async () => {
+  const getCantidadMoudulos = async () => {
     const response = await axios.get(
-      `http://${direccionIP}/universidad/filtro/todas`
+      `http://${direccionIP}/modulo/cantidadModulosEnUniversidad`
     );
-    datosPreprocesados = response.data.universidades.map((universidad) => ({
-      ...universidad,
-      cantidadModulos: universidad.modulos ? universidad.modulos.length : 0,
-    }));
-    setUniversidades(datosPreprocesados); // Actualiza el estado con los datos obtenidos
+    setModulos(response.data.filas)
+    console.log(response.data.filas)
   };
 
-  const getUsuarios = async () => {
+  const getCantidadUsuarios = async () => {
     const response = await axios.get(
       `http://${direccionIP}/usuario_roluniversidad_universidad/countByUniversidad`
     );
     console.log(response.data.filas)
-    const usuariosData = response.data.filas;
-
-    // Crear un objeto para almacenar la cantidad de usuarios por universidad
-    const usuariosPorUniversidad = {};
-
-    // Contar la cantidad de usuarios por universidad
-    usuariosData.forEach((usuario) => {
-      try {
-        const abreviatura =
-        usuario.usuarioUniversidadRoles[0].universidad.abreviacion;
-
-        if (!usuariosPorUniversidad[abreviatura]) {
-          usuariosPorUniversidad[abreviatura] = 1;
-        } else {
-          usuariosPorUniversidad[abreviatura]++;
-        }
-      } catch (error) {
-        
-      }
-
-    });
-
-    const datosPreprocesados = Object.keys(usuariosPorUniversidad).map(
-      (abreviatura) => ({
-        abreviatura,
-        cantidadUsuarios: usuariosPorUniversidad[abreviatura],
-      })
-    );
-
-    setUsuarios(datosPreprocesados);
-    
-    // console.log(response.data.usuarios[1].usuarioUniversidadRoles[0].universidad.nombre);
+    const datosConvertidos = Object.entries(response.data.filas.fila).map(([nombre, cantidad]) => ({
+      nombre,
+      cantidad
+    }));
+    //console.log(datosConvertidos)
+    setUsuarios(datosConvertidos);
   };
 
   useEffect(() => {
-    getUniversidades();
-    getUsuarios();
+    getCantidadMoudulos();
+    getCantidadUsuarios();
   }, []);
 
 
   return (
     <div className='imagen-fondo'>
-      <div className='justify-content-center text-center mb-5 mt-3  p-1'>
+      <div className='justify-content-center text-center mb-5 mt-2  p-1' style={{color:"#7a8584"}}>
         <h1>Te damos la bienvenida {authUser.nombres} {authUser.apellidos}</h1>
       </div>
 
-      <div className='container bordeNegro text-center  mb-5 mt-5 p-1'>
-        <div className='mb-4 pb-2 pt-2'>
+      <div className='container border-0 text-center  mb-3 mt-3 p-1'>
+        <div className='mb-1 pb-2 pt-2 box-titulo-bienvenida'>
           <h3>Acceso rapido</h3>
         </div>
-        <div className='pb-5 pt-5 d-flex justify-content-around'>
-          <h5 className="d-flex"><Link className='link-acceso-directo' to="administrador/usuarios/agregar-excel"><i className="bi bi-file-earmark-plus me-2"></i>Agregar Usuarios con plantilla</Link></h5>
-          <h5 className="d-flex"><Link className='link-acceso-directo' to="administrador/universidades/agregar"><i className="bi bi-plus-square me-2"></i>Agregar Universidad</Link></h5>
-          <h5 className="d-flex"><Link className='link-acceso-directo' to="administrador/universidades/editar"><i className="bi bi-pen me-2"></i>Editar Universidad</Link></h5>
+        <div className='pb-3 pt-1 justify-content-around'>
+          <Row xs={1} md={2} lg={3} className='m-3 g-3'>
+            <Col  className='justify-content-center'>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="administrador/usuarios/agregar-excel"><i className="bi bi-file-earmark-plus me-2"></i>Agregar Usuarios con plantilla</Link></div>
+            </Col>
+            <Col>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="administrador/universidades/agregar"><i className="bi bi-plus-square me-2"></i>Agregar Universidad</Link></div>
+            </Col>
+            <Col>
+            <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="administrador/universidades/editar"><i className="bi bi-pen me-2"></i>Editar Universidad</Link></div>
+            </Col>
+          </Row>
         </div>
       </div>
 
-      <div className='bordeNegro'>
+      <div className=''>
         <div className='container text-center mb-3 mt-3 p-1'>
-          <div className='mb-4'>
+          <div className='box-titulo-bienvenida'>
             <h3>Resumen</h3>
           </div>
-          <div className='pb-4 pt-4  d-flex justify-content-around'>
-            <div>
+          <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
+            <Row xs={1} md={1} lg={2} className='m-3 g-5'>
+              <Col className='mb-4'>
+                <div>
+                  <div>
+                    <h2 style={{color:"#7a8584"}}>Usuarios por universidad</h2>
+                  </div>
+                  <div className='justify-content-center'>
+                    <ResponsiveContainer width="100%" height={350}>
+                      <BarChart data={usuarios}>
+                        <XAxis dataKey="nombre" stroke="#8884d8" />
+                        <YAxis />
+                        <Bar dataKey="cantidad" fill="#8884d8" barSize={30} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </Col>
+            <Col className='mb-4'>
               <div>
-                <h2>Usuarios por universidad (te paso la consulta con los resultados, mira console log, solo falta formatearlos bien)</h2>
-              </div>
-              <div>
-                <BarChart width={600} height={300} data={universidades}>
-                  <XAxis dataKey="abreviacion" stroke="#8884d8" />
-                  <YAxis />
-                  <Bar dataKey="cantidadModulos" fill="#8884d8" barSize={30} />
-                </BarChart>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h2>Modulos por universidad</h2>
-              </div>
-              <div>
-                <BarChart width={600} height={300} data={universidades}>
-                  <XAxis dataKey="abreviacion" stroke="#8884d8" />
-                  <YAxis />
-                  <Bar dataKey="cantidadModulos" fill="#8884d8" barSize={30} />
-                </BarChart>
-              </div>
-            </div>
-            
-            
+                  <div>
+                    <h2 style={{color:"#7a8584"}}>Modulos por universidad</h2>
+                  </div>
+                  <div>
+                    <ResponsiveContainer width="100%" height={350}>
+                      <BarChart data={modulos}>
+                        <XAxis dataKey="universidad.abreviacion" stroke="#8884d8" />
+                        <YAxis />
+                        <Bar dataKey="totalCursos" fill="#8884d8" barSize={30} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+            </Col>
+            </Row>
           </div>
         </div>
       </div>

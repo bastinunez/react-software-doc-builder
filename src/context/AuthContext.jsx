@@ -30,6 +30,7 @@ export function AuthProvider(props){
     const [lastPath, setLastPath] = useState( () => getLocalStorage("path",null))
     const [showSidebar,setShowSidebar] = useState(false)
     const [direccionIP,setDireccionIP] = useState("34.176.177.168:8080")
+    const [filtrador,setFiltrador] = useState( () => getLocalStorage("filtrador",null))
     //console.log("ip:",direccionIP)
     //const [isLoggedIn, setIsLoggedIn] = useState( () => getLocalStorage("logged",false))
 
@@ -45,7 +46,7 @@ export function AuthProvider(props){
     //const value = {authUser, updateAuth, isLoggedIn, setIsLoggedIn}
 
     return(
-        <AuthContext.Provider value = {{authUser,updateAuth,showSidebar,setShowSidebar,lastPath,setLastPath,direccionIP}}>
+        <AuthContext.Provider value = {{authUser,updateAuth,showSidebar,setShowSidebar,lastPath,setLastPath,direccionIP,filtrador,setFiltrador}}>
 
         {props.children}
 

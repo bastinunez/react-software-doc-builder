@@ -27,7 +27,7 @@ const Login = ({authUser}) => {
                     rut:rutUsuario,
                     contrasena:contrasenaUsuario
             });
-            console.log(response.data)
+            //console.log(response.data)
             // Verifica si la respuesta es exito
             if (response.data.filas != "null") {
 
@@ -37,13 +37,13 @@ const Login = ({authUser}) => {
                     updateAuth(response.data.filas);
                     navigate("/administrador",{replace:true})
                 }else{
-                    console.log("rut:",rutUsuario)
+                    //console.log("rut:",rutUsuario)
                     const resp_roles = await axios.get(`http://${direccionIP}/usuario_roluniversidad_universidad/findByUsuario`,{
                         params:{
                             rut:rutUsuario
                         }
                     });
-                    console.log(resp_roles.data.filas)
+                    //console.log(resp_roles.data.filas)
                     // setRutUsuario('')
                     // setContrasenaUsuario('')
 

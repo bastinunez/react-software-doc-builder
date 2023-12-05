@@ -68,7 +68,9 @@ button:focus-visible {
   }
 } 
 */
-
+body{
+  min-height: 100%;
+}
 .colorPrimario{
   background-color: #0d6efd;
 }
@@ -177,23 +179,37 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(148,171,233,1) 
   background-color: #0d6efd;
   color: #fff;
 }
-
+h3{
+  margin: 0;
+  padding: 0;
+}
 .link-acceso-directo{
-  border: 2px solid #198754 ;
+  border: 2px solid #B1C1C0 ;
   border-radius: 3px;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   padding: 1rem;
   text-decoration: none;
-  color: black;
   width: 100%;
   display: flex;
-  color: #198754;
+  color: #7a8584;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%; /* Ajusta el ancho según tus necesidades */
 }
 .link-acceso-directo:hover{
   color: #fff;
-  background-color: #198754;
+  background-color: #B1C1C0;
 }
+.texto-restringido {
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  white-space: nowrap;   /* Evitar que el texto se rompa */
+  overflow: hidden;      /* Ocultar el exceso de texto */
+  text-overflow: ellipsis;  /* Mostrar puntos suspensivos cuando el texto se corta */
+}
+
 .imagen-fondo{
   background-image: url('/fondo_bienvenida.png');
   background-size: cover;
@@ -205,4 +221,39 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(148,171,233,1) 
 }
 .card-hover:hover{
   scale: 1.05;
+}
+.box-titulo-bienvenida{
+  background-color: #B1C1C0;
+  color: #fff;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.estilo-card{
+  min-height: 8rem;
+  border: none;
+  border-bottom: 7px solid #000;
+  background-color: #d7e7ff;
+  width: 100%;
+  /* border-top-left-radius: 20px; */
+}
+.estilo-card:hover{
+  opacity: 80%;
+}
+.grid-contenido-card{
+  height: 100%;
+  display: grid;
+  grid-template-rows: 2rem auto;
+}
+.grid-card-1{
+  grid-row: 1;
+}
+.grid-card-2{
+  grid-row: 2;
+  height: min-content;
+}
+@media screen and (max-width:575.98px) {
+  .texto-volver-filtrador{
+    display: none;
+  }
 }
