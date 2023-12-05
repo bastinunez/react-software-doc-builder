@@ -54,7 +54,7 @@ const AgregarUsuario = () => {
 
         //Agregar universidad a la base de datos.
         try{
-            const response = await axios.post('http://localhost:8080/usuario/guardar', {
+            const response = await axios.post(`http://${direccionIP}/usuario/guardar`, {
                 rut: rut,
                 nombres: nombresUsuario,
                 apellidos: apellidosUsuario,
@@ -83,7 +83,7 @@ const AgregarUsuario = () => {
     const navigate = useNavigate();
 
     const volver = () => {
-        navigate(last);
+        navigate( '/administrador/usuarios');
     }
 
     return (
