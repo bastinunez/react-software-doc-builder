@@ -102,9 +102,9 @@ const Login = ({authUser}) => {
         <>
             <div className='d-flex vh-100 vw-100 fondo'>
                 <div className='vw-100 container-login justify-content-center align-items-center p-2'>
-                    <div className='wrapper p-3 row'>
-                        <div className='row ms-5 me-5'>
-                            <div>
+                    <div className='wrapper row'>
+                        <div className='row mx-2'>
+                            <div className='mt-1'>
                                 <h2>Iniciar Sesion</h2>
                             </div>
                             <div>
