@@ -155,7 +155,7 @@ const Usuarios = () => {
                                 <tr>
                                     <th>RUT</th>
                                     <th>Nombre Completo</th>
-                                    <th className='text-center'>Roles en Universidades</th>
+                                    <th>Roles en Universidades</th>
                                     <th>Editar (pendiente, esta ruta)</th>
                                     <th className='text-center'>Estado</th>
                                 </tr>
@@ -163,12 +163,12 @@ const Usuarios = () => {
                             <tbody>
                                 {currentUsers.map((usuario, index) => (
                                     <tr key={index} className='m-1 mt-2 align-align-items-center'>
-                                        <td>{usuario.rut}</td>
-                                        <td>
+                                        <td className='align-middle'>{usuario.rut}</td>
+                                        <td className='align-middle'>
                                             {usuario.nombres} {usuario.apellidos}
                                         </td>
-                                        <td className='text-center '>
-                                            <ul className='list-unstyled'>
+                                        <td className='align-middle'>
+                                            <ul style={{ margin: '0px' }}>
                                                 {Object.keys(usuario.rol_plataforma).map((index) => (
                                                     <li key={index}>
                                                         <strong> Universidad: </strong>{' '}
@@ -180,7 +180,7 @@ const Usuarios = () => {
                                                 ))}
                                             </ul>
                                         </td>
-                                        <td>
+                                        <td className='align-middle'>
                                             <button
                                                 className='btn btn-primary'
                                                 onClick={() =>
@@ -197,7 +197,7 @@ const Usuarios = () => {
                                                 <i className='bi bi-pencil-square'></i>
                                             </button>
                                         </td>
-                                        <td className='d-flex justify-content-center'>
+                                        <td className='text-center align-middle'>
                                             {usuario.estado ? (
                                                 <button
                                                     className='btn btn-danger'
