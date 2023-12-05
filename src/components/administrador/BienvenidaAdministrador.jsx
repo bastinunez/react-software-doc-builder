@@ -18,14 +18,14 @@ const BienvenidaAdministrador = () => {
       `http://${direccionIP}/modulo/cantidadModulosEnUniversidad`
     );
     setModulos(response.data.filas)
-    console.log(response.data.filas)
+    //console.log(response.data.filas)
   };
 
   const getCantidadUsuarios = async () => {
     const response = await axios.get(
       `http://${direccionIP}/usuario_roluniversidad_universidad/countByUniversidad`
     );
-    console.log(response.data.filas)
+    //console.log(response.data.filas)
     const datosConvertidos = Object.entries(response.data.filas.fila).map(([nombre, cantidad]) => ({
       nombre,
       cantidad
@@ -71,7 +71,7 @@ const BienvenidaAdministrador = () => {
             <h3>Resumen</h3>
           </div>
           <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
-            <Row xs={1} md={1} lg={2} className='m-3 g-5'>
+            <Row xs={1} md={1} lg={2} className='m-3 g-5 w-100'>
               <Col className='mb-4'>
                 <div>
                   <div>

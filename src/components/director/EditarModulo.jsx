@@ -33,11 +33,10 @@ const EditarModulo = () => {
         e.preventDefault()
         //Agregar universidad a la base de datos.
         try{
-            console.log(location.state.abreviacion,nombreModulo)
-            const response = await axios.patch(`http://${direccionIP}/universidad/actualizar_informacion_modulo`, {
-                abreviacionUniversidad:location.state.abreviacion,
-                nombreModulo: location.state.nombreModulo,
-                nuevaDescripcionModulo: descripcion
+            //console.log(location.state.abreviacion,nombreModulo)
+            const response = await axios.patch(`http://${direccionIP}/modulo/actualizar`, {
+                nombre: location.state.nombreModulo,
+                descripcion: descripcion
             });
             setCuerpoModal(response.data.mensaje); 
             mostrarModal();

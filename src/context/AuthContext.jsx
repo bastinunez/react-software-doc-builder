@@ -30,7 +30,7 @@ export function AuthProvider(props){
     const [lastPath, setLastPath] = useState( () => getLocalStorage("path",null))
     const [showSidebar,setShowSidebar] = useState(false)
     const [direccionIP,setDireccionIP] = useState("34.176.177.168:8080")
-    const [filtrador,setFiltrador] = useState( () => getLocalStorage("filtrador",null))
+    const [filtrador,setFiltrador] = useState( () => getLocalStorage("filtrador",false))
     //console.log("ip:",direccionIP)
     //const [isLoggedIn, setIsLoggedIn] = useState( () => getLocalStorage("logged",false))
 

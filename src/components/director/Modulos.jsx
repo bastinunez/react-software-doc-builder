@@ -26,11 +26,7 @@ export const Modulos = () => {
   };
   
   const getModulosUniversidad = async () => {
-    const response = await axios.get( `http://${direccionIP}/modulo/busqueda_por_universidad`,{
-        abreviacion:authUser.universidad.abreviacion
-      }
-    );
-    console.log(response.data)
+    const response = await axios.get(`http://${direccionIP}/modulo/busqueda_por_universidad?abreviacion=${authUser.universidad.abreviacion}`);
     setModulos(response.data.filas); // Actualiza el estado con los datos obtenidos
   };
 
@@ -42,12 +38,11 @@ export const Modulos = () => {
     //Deshabilitar Módulo a la base de datos.
     try {
       const datos = {
-        abreviacionUniversidad:abreviacion,
-        nombreModulo:modulo,
-        estadoModulo:"false"
+        nombre:modulo,
+        estado:"false"
       }
       const response = await axios.patch(
-        `http://${direccionIP}/universidad/cambiar_estado_modulo`,
+        `http://${direccionIP}/modulo/cambiar_estado`,
         datos
       );
       //console.log(response.data);
@@ -63,12 +58,11 @@ export const Modulos = () => {
     //Habilitar Módulo a la base de datos.
     try {
       const datos = {
-        abreviacionUniversidad:abreviacion,
-        nombreModulo:modulo,
-        estadoModulo:"true"
+        nombre:modulo,
+        estado:"true"
       }
       const response = await axios.patch(
-        `http://${direccionIP}/universidad/cambiar_estado_modulo`,
+        `http://${direccionIP}/modulo/cambiar_estado`,
         datos
       );
       //console.log(response.data);
@@ -88,6 +82,11 @@ export const Modulos = () => {
     setLastPath(location.pathname)
     navigate("/director/modulos/agregar",{state:{abreviacion:authUser.universidad.abreviacion}});
   };
+
+  const verInstancias = (modulo,universidad) => {
+    console.log("Aqui hay que enviar los datos para obtener las instancias")
+    // navigate("/director/instancias")
+  }
 
   const irEditarModulo = (abreviacion,modulo) => {
     setLastPath(location.pathname)
@@ -126,6 +125,7 @@ export const Modulos = () => {
                 <th>Habilitado</th>
                 <th>Editar</th>
                 <th className="d-flex justify-content-center">Habilitar/deshabilitar</th>
+                <td>Ver Instancias</td>
               </tr>
             </thead>
             <tbody>
@@ -169,6 +169,11 @@ export const Modulos = () => {
                           <i className="bi bi-check"></i>
                         </button>
                       )}
+                    </td>
+                    <td>
+                      <button className="btn btn-success" onClick={() => verInstancias(modulo.nombre,authUser.universidad.abreviacion)}>
+                        <i className="bi bi-box-arrow-in-right"></i>
+                      </button>
                     </td>
                   </tr>
               ))}
