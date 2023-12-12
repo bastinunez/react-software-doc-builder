@@ -174,13 +174,13 @@ const Usuarios = () => {
 										</td>
 										<td className='align-middle'>
 											<ul style={{ margin: '0px' }}>
-												{Object.keys(usuario.rol_plataforma).map((index) => (
+												{usuario.rol_plataforma ? Object.keys(usuario.rol_plataforma).map((index) => (
 													<li key={index}>
 														<strong> Universidad: </strong> {usuario.rol_plataforma[index]?.fila?.nombre}
 														<br />
 														<strong> Rol: </strong> {usuario.rol_plataforma[index]?.fila?.nombreRolUniversidad}
 													</li>
-												))}
+												)): <li>No tiene roles en universidades</li>}
 											</ul>
 										</td>
 										<td className='align-middle'>
