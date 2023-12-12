@@ -34,6 +34,7 @@ const AgregarUsuario = () => {
         try {
             const response = await axios.get(`http://${direccionIP}/universidad/habilitadas`);
             setUniversidades(response.data.filas);
+            console.log(response.data.filas);
         } catch (error) {
             console.error("Hubo un problema al obtener las universidades: ", error);
         }
@@ -55,7 +56,6 @@ const AgregarUsuario = () => {
 
         //Agregar universidad a la base de datos.
         try{
-            
             const response = await axios.post(`http://${direccionIP}/usuario/guardar`, {
                 rut: rut,
                 nombres: nombresUsuario,
@@ -68,7 +68,7 @@ const AgregarUsuario = () => {
             });
 
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-            setCuerpoModal(response.data.mensaje);
+            setCuerpoModal('Se agregó correctamente el usuario.');
             mostrarModal();
             return;
         }
@@ -76,7 +76,6 @@ const AgregarUsuario = () => {
             setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
             setCuerpoModal("Ocurrió un error al agregar el usuario.");
             mostrarModal();
-            console.log(error);
             return;
         }
     }
@@ -141,9 +140,9 @@ const AgregarUsuario = () => {
                             <Form.Label>Rol</Form.Label>
                             <Form.Select aria-label="Default select example" onChange={ (e) => setNombreRol(e.target.value) } value={nombreRol}>
                                 <option value="">Elegir rol</option>
-                                <option key={"Jefe de Carrera"} value="1">Jefe de Carrera</option>
-                                <option key={"Profesor"} value="2">Profesor</option>
-                                <option key={"Estudiante"} value="3">Estudiante</option>
+                                <option key={"1"} value="Jefe de Carrera">Jefe de Carrera</option>
+                                <option key={"2"} value="Profesor">Profesor</option>
+                                <option key={"3"} value="Estudiante">Estudiante</option>
                             </Form.Select>
                         </Form.Group>
                         

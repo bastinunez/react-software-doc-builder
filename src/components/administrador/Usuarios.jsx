@@ -145,7 +145,7 @@ const Usuarios = () => {
 							<div className='p-1'>
 								<i className='bi bi-plus-circle'></i>
 							</div>
-							<div className='p-1'>Agregar usuario (pendiente)</div>
+							<div className='p-1'>Agregar usuario</div>
 						</button>
 					</div>
 				</div>
