@@ -26,8 +26,8 @@ const EditarUsuario = () => {
     useEffect(() => {
         const fetchUniversidades = async () => {
         try {
-            const response = await axios.get(`http://${direccionIP}/universidad/filtro/habilitadas`);
-            setUniversidades(response.data.universidades);
+            const response = await axios.get(`http://${direccionIP}/universidad/habilitadas`);
+            setUniversidades(response.data.filas);
         } catch (error) {
             console.error("Hubo un problema al obtener las universidades: ", error);
         }
@@ -61,24 +61,23 @@ const EditarUsuario = () => {
         e.preventDefault()
         if (checkAgregarRol){
             try {
-                const response = await axios.patch(`http://${direccionIP}/usuario/asignar_rol_en_universidad`, {
-                    rut:rut,
-                    abreviacionUniversidad:uniAbreviacion,
-                    rolId:rolId
+                const response = await axios.patch(`http://${direccionIP}/usuario_roluniversidad_universidad/anadir_rol_usuario_existente`, {
+                    rut: rut,
+                    abreviacionUniversidad: uniAbreviacion,
+                    nombreRol: rolId
                 });
                 setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-                setCuerpoModal(response.data.mensaje); 
+                setCuerpoModal('Se añadió correctamente el rol al usuario'); 
                 mostrarModal();
             } catch (error) {
                 setTituloModal('<span className="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
                 setCuerpoModal('Ocurrió un error al agregar el rol al usuario'); 
                 mostrarModal();
-                console.log(rut,uniAbreviacion,rolId)
             }
         }else{
             try{
-                const response = await axios.patch(`http://${direccionIP}/usuario`, {
-                    rut,
+                const response = await axios.patch(`http://${direccionIP}/usuario/actualizar`, {
+                    rut: rut,
                     nombres: nombresUsuario,
                     apellidos: apellidosUsuario,
                     contrasena: passwordUsuario,
@@ -86,7 +85,7 @@ const EditarUsuario = () => {
     
                 });
                 setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-                setCuerpoModal(response.data.mensaje); 
+                setCuerpoModal('Usuario actualizado con éxito'); 
                 mostrarModal();
                 //console.log(response.data)
             }
@@ -160,8 +159,8 @@ const EditarUsuario = () => {
                                 <ListGroup className="w-100">
                                     {roles.map( (rol,index) => (
                                         <ListGroup horizontal key={index} className="w-100">
-                                            <ListGroup.Item className="w-50">{rol.rol.nombre}</ListGroup.Item>
-                                            <ListGroup.Item className="w-50">{rol.universidad.nombre}</ListGroup.Item>
+                                            <ListGroup.Item className="w-50">{rol.fila.nombreRolUniversidad}</ListGroup.Item>
+                                            <ListGroup.Item className="w-50">{rol.fila.nombre}</ListGroup.Item>
                                         </ListGroup>
                                         )
                                     )}
@@ -181,9 +180,9 @@ const EditarUsuario = () => {
                                     <Form.Label>Rol</Form.Label>
                                     <Form.Select aria-label="Default select example" onChange={ (e) => setRolId(e.target.value) } value={rolId} required>
                                         <option value="">Elegir rol</option>
-                                        <option key={"1"} value="1">Jefe de Carrera</option>
-                                        <option key={"2"} value="2">Profesor</option>
-                                        <option key={"3"} value="3">Estudiante</option>
+                                        <option key={"1"} value="Jefe de Carrera">Jefe de Carrera</option>
+                                        <option key={"2"} value="Profesor">Profesor</option>
+                                        <option key={"3"} value="Estudiante">Estudiante</option>
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="">

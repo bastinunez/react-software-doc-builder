@@ -32,7 +32,6 @@ const Usuarios = () => {
 	const getUsuarios = async () => {
 		const response = await axios.get(`http://${direccionIP}/usuario/`);
 		const resultados = response.data.filas;
-		console.log(resultados);
 
 		// Crear un array de promesas para obtener los roles de cada usuario
 		const promises = resultados.map(async (usuario) => {
@@ -66,7 +65,6 @@ const Usuarios = () => {
 		//Agregar universidad a la base de datos.
 		try {
 			const response = await axios.patch(`http://${direccionIP}/usuario/cambiar_estado?rut=${rut}&estado=true`);
-			console.log(response.data);
 			setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Usuario habilitado');
 			setCuerpoModal('Se ha habilitado correctamente el usuario');
 			mostrarModal();
@@ -87,7 +85,6 @@ const Usuarios = () => {
 
 		try {
 			const response = await axios.patch(`http://${direccionIP}/usuario/cambiar_estado?rut=${rut}&estado=false`);
-			console.log(response.data);
 			setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Usuario deshabilitado');
 			setCuerpoModal('Se ha deshabilitado correctamente el usuario');
 			mostrarModal();

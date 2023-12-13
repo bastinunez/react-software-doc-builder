@@ -34,7 +34,6 @@ const AgregarUsuario = () => {
         try {
             const response = await axios.get(`http://${direccionIP}/universidad/habilitadas`);
             setUniversidades(response.data.filas);
-            console.log(response.data.filas);
         } catch (error) {
             console.error("Hubo un problema al obtener las universidades: ", error);
         }
