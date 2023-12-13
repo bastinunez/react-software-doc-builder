@@ -61,9 +61,8 @@ const AgregarUsuario = () => {
                 apellidos: apellidosUsuario,
                 contrasena: passwordUsuario,
                 email: emailUsuario,
-                abreviacionUniversidad: universidadId,
-                nombreRol: nombreRol
-
+                nombreRol: nombreRol,
+                abreviacionUniversidad: universidadId
             });
 
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');

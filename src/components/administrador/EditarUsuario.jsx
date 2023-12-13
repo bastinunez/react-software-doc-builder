@@ -200,10 +200,15 @@ const EditarUsuario = () => {
                             :
                             <></>
                         }
-
-                        <Button variant="primary" type="submit">
-                            Guardar cambios
-                        </Button>
+                        { !checkAgregarRol ? (
+                            <Button variant="primary" type="submit">
+                                Guardar cambios
+                            </Button> 
+                        ) : (
+                            <Button variant="primary" type="submit">
+                                Añadir rol
+                            </Button>
+                        )}
                     </Form>
                 </div>
             </div>

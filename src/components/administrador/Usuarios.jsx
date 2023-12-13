@@ -103,7 +103,7 @@ const Usuarios = () => {
 
 	const irAgregarUsuarios = () => {
 		// navigate('/administrador/universidades/agregar',{ state: { nombre, apellido } }) //este es un ejemplo si es que se quiere pasar parametros
-		navigate('/administrador/usuarios/agregarExcel');
+		navigate('/administrador/usuarios/agregar-excel');
 	};
 
 	const irEditarUsuario = (rut, nombres, apellidos, correo, contrasena, roles) => {
@@ -134,7 +134,7 @@ const Usuarios = () => {
 							<div className='p-1'>
 								<i className='bi bi-plus-circle'></i>
 							</div>
-							<div className='p-1'>Agregar usuarios (falta implementar la misma ruta individual acá)</div>
+							<div className='p-1'>Agregar usuarios</div>
 						</button>
 						<button
 							className='btn btn-primary border-0 rounded-2 p-1 d-flex text-white'
@@ -156,7 +156,7 @@ const Usuarios = () => {
 									<th> RUT </th>
 									<th> Nombre Completo </th>
 									<th> Roles en Universidades </th>
-									<th> Editar (pendiente, esta ruta) </th>
+									<th> Editar </th>
 									<th className='text-center'> Estado </th>
 								</tr>
 							</thead>
