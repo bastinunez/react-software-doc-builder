@@ -128,7 +128,7 @@ function App() {
                 <Route path='modulos' element = {<ModulosDirector />} />
                 <Route path='modulos/editar' element = {<EditarModulo />} />
                 <Route path='modulos/agregar' element = {<AgregarModulo />} />
-                <Route path='instancias' element = {<InstanciaModulo />} />
+                <Route path='modulos/instancia' element = {<InstanciaModulo />} />
                 <Route path='perfil' element = {<VerPerfil />} />
               </Route> 
             </Route>
