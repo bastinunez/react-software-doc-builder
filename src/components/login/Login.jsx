@@ -43,6 +43,7 @@ const Login = ({authUser}) => {
                             rut:rutUsuario
                         }
                     });
+                    //console.log(resp_roles)
                     //console.log(resp_roles.data.filas)
                     // setRutUsuario('')
                     // setContrasenaUsuario('')
@@ -57,10 +58,10 @@ const Login = ({authUser}) => {
                                 "rol_plataforma":response.data.filas.rol_plataforma
                             },
                             rol:{
-                                "nombre": resp_roles.filas[0].fila.nombreRolUniversidad
+                                "nombre": resp_roles.data.filas[0].fila.nombreRolUniversidad
                             },
                             universidad:{
-                                "abreviacion": resp_roles.filas[0].fila.abreviacion
+                                "abreviacion": resp_roles.data.filas[0].fila.abreviacion
                             }
                         }
                         localStorage.setItem("auth", JSON.stringify(credenciales_usuario));

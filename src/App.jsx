@@ -31,10 +31,15 @@ import EditarUsuario from './components/administrador/EditarUsuario';
 // Jefe de Carrera
 import JefeCarreraDashboard from './components/director/JefeCarreraDashboard';
 import BienvenidaDirector from './components/director/BienvenidaDirector';
+import {UsuariosAcademico} from './components/director/Usuarios';
+import AgregarUsuarioDirector from './components/director/AgregarUsuario';
+import EditarUsuarioDirector from './components/director/EditarUsuario';
 import {Modulos as ModulosDirector} from './components/director/Modulos';
 import EditarModulo from './components/director/EditarModulo';
 import InstanciaModulo from './components/director/InstanciaModulo';
 import AgregarModulo from './components/director/AgregarModulo';
+import AgregarInstanciaDirector from './components/director/AgregarInstancia';
+
 
 // Academico
 import AcademicoDashboard from './components/academico/AcademicoDashboard'
@@ -125,10 +130,17 @@ function App() {
               <Route path='/director' element = {<JefeCarreraDashboard />}>
                 <Route index element={<Navigate to="bienvenida" />} />
                 <Route path='bienvenida' element= {<BienvenidaDirector />}/>
+
+                <Route path='usuarios' element= {<UsuariosAcademico />}/>
+                <Route path='usuarios/agregar' element= {<AgregarUsuarioDirector />}/>
+                <Route path='usuarios/editar' element= {<EditarUsuarioDirector />}/>
+
                 <Route path='modulos' element = {<ModulosDirector />} />
                 <Route path='modulos/editar' element = {<EditarModulo />} />
                 <Route path='modulos/agregar' element = {<AgregarModulo />} />
-                <Route path='instancias' element = {<InstanciaModulo />} />
+                <Route path='modulos/instancia' element = {<InstanciaModulo />} />
+                <Route path='modulos/instancia/agregar' element = {<AgregarInstanciaDirector />} />
+
                 <Route path='perfil' element = {<VerPerfil />} />
               </Route> 
             </Route>

@@ -66,7 +66,7 @@ export const Modulos = () => {
         datos
       );
       //console.log(response.data);
-      setCuerpoModal("Se ha habilitado correctamente la universidad");
+      setCuerpoModal("Se ha habilitado correctamente el modulo");
       mostrarModal();
       await getModulosUniversidad();
     } catch (error) {
@@ -83,9 +83,9 @@ export const Modulos = () => {
     navigate("/director/modulos/agregar",{state:{abreviacion:authUser.universidad.abreviacion}});
   };
 
-  const verInstancias = (modulo,universidad) => {
-    console.log("Aqui hay que enviar los datos para obtener las instancias")
-    // navigate("/director/instancias")
+  const verInstancias = (abreviacion,modulo) => {
+    //console.log("Aqui hay que enviar los datos para obtener las instancias")
+    navigate("/director/modulos/instancia",{state:{abreviacion:abreviacion,nombreModulo:modulo}})
   }
 
   const irEditarModulo = (abreviacion,modulo) => {
@@ -119,19 +119,17 @@ export const Modulos = () => {
           <Table responsive>
             <thead>
               <tr>
-                {/* <th>#</th> */}
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Habilitado</th>
                 <th>Editar</th>
-                <th className="d-flex justify-content-center">Habilitar/deshabilitar</th>
-                <td>Ver Instancias</td>
+                <th>Habilitar/deshabilitar</th>
+                <th>Ver Instancias</th>
               </tr>
             </thead>
             <tbody>
               {currentModulos.map((modulo, index) => (
                   <tr key={index} className="m-1 mt-2 align-align-items-center">
-                    {/* <td>{index}</td> */}
                     <td>{modulo.nombre}</td>
                     <td>{modulo.descripcion}</td>
                     <td>{modulo.estado ? "Si" : "No"}</td>
@@ -147,31 +145,33 @@ export const Modulos = () => {
                       </button>
                     </td>
                 
-                    <td className="d-flex justify-content-center">
-                      {modulo.estado ? (
-                        <button
-                          className="btn btn-danger"
-                          onClick={() =>
-                            deshabilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
-                          }
-                          title="Deshabilitar Módulo"
-                        >
-                          <i className="bi bi-dash"></i>
-                        </button>
-                      ) : (
-                        <button
-                          className="btn btn-success"
-                          onClick={() =>
-                            habilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
-                          }
-                          title="Habilitar Módulo"
-                        >
-                          <i className="bi bi-check"></i>
-                        </button>
-                      )}
+                    <td className="justify-content-center">
+                      <div className="d-flex justify-content-center">
+                        {modulo.estado ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                              deshabilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
+                            }
+                            title="Deshabilitar Módulo"
+                          >
+                            <i className="bi bi-dash"></i>
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-success"
+                            onClick={() =>
+                              habilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
+                            }
+                            title="Habilitar Módulo"
+                          >
+                            <i className="bi bi-check"></i>
+                          </button>
+                        )}
+                      </div>
                     </td>
-                    <td>
-                      <button className="btn btn-success" onClick={() => verInstancias(modulo.nombre,authUser.universidad.abreviacion)}>
+                    <td className="justify-content-center">
+                      <button className="btn btn-success" onClick={() => verInstancias(authUser.universidad.abreviacion,modulo.nombre)}>
                         <i className="bi bi-box-arrow-in-right"></i>
                       </button>
                     </td>
