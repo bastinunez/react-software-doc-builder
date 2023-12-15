@@ -24,7 +24,7 @@ const InstanciaModulo = () => {
   const indexOfLastInstancia = currentPage * itemsPerPage;
   const indexOfFirstInstancia = indexOfLastInstancia - itemsPerPage;
   const currentInstancia = instancias.slice(indexOfFirstInstancia, indexOfLastInstancia);
-
+  const navigate = useNavigate()
 
   useEffect(()=>{
     setNombreModulo(location.state.nombreModulo)
@@ -38,7 +38,7 @@ const InstanciaModulo = () => {
     //console.log(response.data.filas)
   }
   const irAgregarInstancia = async () => {
-
+    navigate('/director/modulos/instancia/agregar',{state:{nombreModulo:nombreModulo}})
   }
  
   return (
@@ -76,7 +76,7 @@ const InstanciaModulo = () => {
                     <td>{instancia.instanciaModuloPK.ano}</td>
                     <td>{instancia.instanciaModuloPK.semestre}</td>
                     <td>{instancia.instanciaModuloPK.seccion}</td>
-                    <td>{instancia.profesor == null ? `No asignado` : instancia.profesor}</td>
+                    <td>{instancia.profesor == null? `No asignado` : instancia.profesor.nombres}</td>
                   </tr>
               ))}
             </tbody>

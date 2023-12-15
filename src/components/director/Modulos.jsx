@@ -66,7 +66,7 @@ export const Modulos = () => {
         datos
       );
       //console.log(response.data);
-      setCuerpoModal("Se ha habilitado correctamente la universidad");
+      setCuerpoModal("Se ha habilitado correctamente el modulo");
       mostrarModal();
       await getModulosUniversidad();
     } catch (error) {
