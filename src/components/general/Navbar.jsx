@@ -124,7 +124,7 @@ export const NavBarExport = () => {
 													<i className="bi bi-person-square  me-2"></i>
 													{ authUser?.rol_plataforma == 'Administrador'  ? `${authUser.nombres} `
 													: `${authUser.usuario.nombres}`}
-													</span>
+												</span>
 											</Navbar.Text>
 											{
 												authUser?.rol_plataforma != 'Administrador'?

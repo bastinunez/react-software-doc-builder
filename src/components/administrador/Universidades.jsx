@@ -57,10 +57,13 @@ const Universidades = () => {
         return;
       }
       setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-      setCuerpoModal('Ocurrió un error al habilitar la universidad');
+      setCuerpoModal('Ocurrió un error al deshabilitar la universidad');
       mostrarModal();
       return;
     } catch (error) {
+      setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+      setCuerpoModal('Ocurrió un error al deshabilitar la universidad');
+      mostrarModal();
       console.log(error);
 
     }
@@ -88,6 +91,9 @@ const Universidades = () => {
       mostrarModal();
       return;
     } catch (error) {
+      setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+      setCuerpoModal('Ocurrió un error al habilitar la universidad');
+      mostrarModal();
       console.log(error);
     }
   };
@@ -123,7 +129,7 @@ const Universidades = () => {
               <div className="p-1">
                 <i className="bi bi-plus-circle"></i>
               </div>
-              <div className="p-1">Agregar universidad (funciona pero no muestra mensaje de error, creo que hay que ponerlo en try catch)</div>
+              <div className="p-1">Agregar universidad</div>
             </button>
           </div>
         </div>
@@ -135,8 +141,8 @@ const Universidades = () => {
                 <th>Nombre</th>
                 <th>Abreviación</th>
                 <th>Habilitado </th>
-                <th>Editar (funcionando)</th>
-                <th className="d-flex justify-content-center">Estado (funcionando)</th>
+                <th>Editar</th>
+                <th className="d-flex justify-content-center">Estado</th>
               </tr>
             </thead>
             <tbody>

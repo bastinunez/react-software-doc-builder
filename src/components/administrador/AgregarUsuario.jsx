@@ -14,10 +14,11 @@ const AgregarUsuario = () => {
     const [apellidosUsuario, setApellidosUsuario] = useState("");
     const [passwordUsuario, setPasswordUsuario] = useState("");
     const [emailUsuario,setEmailUsuario] = useState("");
-    const [rolId, setRolId] = useState();
+    const [nombreRol, setNombreRol] = useState();
     const [universidadId, setUniversidadId] = useState("");
     const [universidades, setUniversidades] = useState([]);
     
+    // Ventana modal
     const [showModal, setShowModal] = useState(false);
     const [tituloModal, setTituloModal] = useState("");
     const [cuerpoModal, setCuerpoModal] = useState("");
@@ -43,7 +44,7 @@ const AgregarUsuario = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        if(universidadId === "" | rolId === ""){
+        if(universidadId === "" | nombreRol === ""){
             setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
             setCuerpoModal("Falta la universidad y/o rol"); 
             mostrarModal(); 
@@ -54,28 +55,25 @@ const AgregarUsuario = () => {
 
         //Agregar universidad a la base de datos.
         try{
-            const response = await axios.post('http://localhost:8080/usuario/guardar', {
+            const response = await axios.post(`http://${direccionIP}/usuario/guardar`, {
                 rut: rut,
                 nombres: nombresUsuario,
                 apellidos: apellidosUsuario,
                 contrasena: passwordUsuario,
                 email: emailUsuario,
-                abreviacionUniversidad: universidadId,
-                idRol: rolId
-
+                nombreRol: nombreRol,
+                abreviacionUniversidad: universidadId
             });
 
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-            setCuerpoModal(response.data.mensaje);
+            setCuerpoModal('Se agregó correctamente el usuario.');
             mostrarModal();
-            setRut("");
             return;
         }
         catch(error){
             setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-            setCuerpoModal("Ya existe un usuario con ese rut");
+            setCuerpoModal("Ocurrió un error al agregar el usuario.");
             mostrarModal();
-            setRut("");
             return;
         }
     }
@@ -83,7 +81,7 @@ const AgregarUsuario = () => {
     const navigate = useNavigate();
 
     const volver = () => {
-        navigate(last);
+        navigate( '/administrador/usuarios');
     }
 
     return (
@@ -138,11 +136,11 @@ const AgregarUsuario = () => {
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Rol</Form.Label>
-                            <Form.Select aria-label="Default select example" onChange={ (e) => setRolId(e.target.value) } value={rolId}>
+                            <Form.Select aria-label="Default select example" onChange={ (e) => setNombreRol(e.target.value) } value={nombreRol}>
                                 <option value="">Elegir rol</option>
-                                <option key={"1"} value="1">Jefe de Carrera</option>
-                                <option key={"2"} value="2">Profesor</option>
-                                <option key={"3"} value="3">Estudiante</option>
+                                <option key={"1"} value="Jefe de Carrera">Jefe de Carrera</option>
+                                <option key={"2"} value="Profesor">Profesor</option>
+                                <option key={"3"} value="Estudiante">Estudiante</option>
                             </Form.Select>
                         </Form.Group>
                         
