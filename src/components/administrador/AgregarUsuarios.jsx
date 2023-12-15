@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 
 const AgregarUsuarios = () => {
-  const {showSidebar,setShowSidebar, authUser,lastPath,setLastPath,direccionIP} = useAuth()
+  const {showSidebar, setShowSidebar, authUser, lastPath, setLastPath, direccionIP} = useAuth()
   const inputRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [tituloModal, setTituloModal] = useState("");
@@ -39,7 +39,7 @@ const AgregarUsuarios = () => {
       let cargarUsuarios = true;
       // Ahora puedes procesar los datos y realizar la llamada a la API
       for (const usuario of datos) {
-        if (!usuario.apellidos || !usuario.nombres || !usuario.rut || !usuario.contrasena || !usuario.email || !usuario.rolId || !usuario.universidadId) {
+        if (!usuario.apellidos || !usuario.nombres || !usuario.rut || !usuario.contrasena || !usuario.email || !usuario.nombreRol || !usuario.universidadId) {
           setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
           setCuerpoModal('Hay datos vacíos para un usuario, revisa el archivo');
           mostrarModal();
@@ -60,25 +60,28 @@ const AgregarUsuarios = () => {
           }
         }
       }
-      console.log('cargarUsuarios', cargarUsuarios);
+
       if(cargarUsuarios){
-        datos.forEach(async (usuario) => {
-          const response = await axios.post(
-            "http://localhost:8080/usuario/guardar_con_rol_en_universidad", {
-              rut: usuario.rut,
-              nombres: usuario.nombres,
-              apellidos: usuario.apellidos,
-              contrasena: usuario.contrasena,
-              email: usuario.email,
-              rolId: usuario.rolId,
-              universidadId: usuario.universidadId,
-            }
-          );
-          setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-          setCuerpoModal("Se han cargado correctamente los usuarios"); 
-          mostrarModal();
-          console.log(response.data); 
-        });
+        try {
+          datos.forEach(async (usuario) => {
+            const response = await axios.post(
+              `http://${direccionIP}/usuario/guardar`, {
+                rut: usuario.rut,
+                nombres: usuario.nombres,
+                apellidos: usuario.apellidos,
+                contrasena: usuario.contrasena,
+                email: usuario.email,
+                nombreRol: usuario.nombreRol,
+                abreviacionUniversidad: usuario.universidadId,
+              }
+            );
+            setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
+            setCuerpoModal("Se han cargado correctamente los usuarios"); 
+            mostrarModal();
+          });
+        } catch (error) {
+          console.err(error);
+        }
       }
     }
   }
@@ -94,6 +97,18 @@ const AgregarUsuarios = () => {
     inputRef.current.value = null;
   }
 
+  const getTemplate = () => {
+    const path = '../../assets/plantilla.xlsx';
+    const link = document.createElement('a');
+    link.href = path;
+    link.download = 'plantilla.xlsx';
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  }
+
   return (
     <div>
       <div>
@@ -101,6 +116,7 @@ const AgregarUsuarios = () => {
       </div>
       <button className='btn btn-primary' onClick={volver}>Volver atrás</button>
       <div className="w-100 d-flex justify-content-center ">
+        
         <div className="w-100" style={{ maxWidth: "600px" }}>
           <div className="p-4">
             <Form onSubmit={handleSubmit}>
@@ -119,10 +135,13 @@ const AgregarUsuarios = () => {
                 Agregar usuarios
               </Button>
               <Button className="mx-1 btn btn-secondary" onClick={borrarSeleccion}>
-                    Borrar selección
+                Borrar selección
               </Button>
-
+              <button className="mx-1 btn btn-secondary" onClick={getTemplate} type="button">
+                Descargar plantilla
+              </button>
             </Form>
+              
           </div>
         </div>
       </div>
