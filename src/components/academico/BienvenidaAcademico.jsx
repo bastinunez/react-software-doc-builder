@@ -19,13 +19,13 @@ const BienvenidaAcademico = () => {
         <div className='pb-3 pt-1 justify-content-around'>
           <Row xs={1} md={2} lg={3} className='m-3 g-3'>
             <Col>
-              <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="director/instancias/agregar"><i className="bi bi-patch-plus me-2"></i>Agregar Instancia de Módulo</Link></h5>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="director/instancias/agregar"><i className="bi bi-patch-plus me-2"></i>Agregar Instancia de Módulo</Link></div>
             </Col>
             <Col>
-              <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Ver usuarios</Link></h5>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Ver usuarios</Link></div>
             </Col>
             <Col>
-              <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="director/instancias"><i className="bi bi-card-checklist me-2"></i>Ver instancias</Link></h5>
+              <div className="d-flex texto-restringido"><Link className='link-acceso-directo' to="director/instancias"><i className="bi bi-card-checklist me-2"></i>Ver instancias</Link></div>
             </Col>
           </Row>
         </div>

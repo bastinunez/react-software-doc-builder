@@ -202,7 +202,7 @@ h3{
   color: #7a8584;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 80%; /* Ajusta el ancho según tus necesidades */
+  /*width: 80%;  Ajusta el ancho según tus necesidades */
 }
 .link-acceso-directo:hover{
   color: #fff;
