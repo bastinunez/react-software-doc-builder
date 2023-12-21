@@ -7,7 +7,7 @@ import {useAuth} from '../../context/AuthContext'
 import axios from 'axios';
 
 export const NavBarExport = () => {
-	const {filtrador,setShowSidebar,authUser, updateAuth,direccionIP} = useAuth()
+	const {filtrador,setFiltrador,setShowSidebar,authUser, updateAuth,direccionIP} = useAuth()
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShowSidebar(false);
@@ -18,6 +18,7 @@ export const NavBarExport = () => {
 	var pathRol="/"
 	const onLogout = () => {
 		updateAuth('')
+		setFiltrador(null)
 		localStorage.setItem("auth", null);
 		localStorage.setItem("logged", false);
 		localStorage.setItem("filtrador",null)
@@ -66,6 +67,7 @@ export const NavBarExport = () => {
 		
 	}
 	useEffect(()=>{
+		//console.log("filtrador:",filtrador)
 		if (authUser?.rol_plataforma === 'Administrador') {
 			pathRol+="administrador";
 		}
@@ -108,7 +110,7 @@ export const NavBarExport = () => {
 								{authUser ? (
 									<div className='container d-flex w-100'>
 										{
-											filtrador? 
+											filtrador!==null? 
 												<div className='align-items-center d-flex me-lg-2 me-1'>
 													<Button className='boton-navbar d-flex align-items-center' onClick={backFiltrador}>
 														<i className="bi bi-arrow-left-circle-fill me-lg-1"></i>

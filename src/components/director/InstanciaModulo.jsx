@@ -40,12 +40,17 @@ const InstanciaModulo = () => {
   const irAgregarInstancia = async () => {
     navigate('/director/modulos/instancia/agregar',{state:{nombreModulo:nombreModulo}})
   }
- 
+  
+  const volver = () => {
+    navigate( '/director/modulos');
+  }
+
   return (
     <div>
       <div className="pt-2 pb-3">
         <h1 className="text-center">Instancias de {nombreModulo}</h1>
       </div>
+      <button className='btn btn-primary' onClick={volver}>Volver atrás</button>
       <div>
         <div>
           <div className="bg-white w-100 justify-content-end d-flex p-3">

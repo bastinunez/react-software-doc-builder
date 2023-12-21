@@ -30,9 +30,10 @@ const AgregarModulo = () => {
 
         //Agregar universidad a la base de datos.
         try{
+            console.log(nombre,descripcion,location.state.abreviacion)
             const response = await axios.post(`http://${direccionIP}/modulo/guardar`, {
-                nombreModulo:nombre,
-                descripcionModulo: descripcion,
+                nombre:nombre,
+                descripcion: descripcion,
                 abreviacionUniversidad:location.state.abreviacion
             });
             setCuerpoModal(response.data.mensaje); 
@@ -45,8 +46,7 @@ const AgregarModulo = () => {
     }
 
     const volver = () => {
-        //console.log(lastPath)
-        navigate(lastPath);
+        navigate("/director/modulos");
     }
 
     return (
