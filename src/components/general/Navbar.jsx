@@ -67,7 +67,7 @@ export const NavBarExport = () => {
 		
 	}
 	useEffect(()=>{
-		console.log("filtrador:",filtrador)
+		//console.log("filtrador:",filtrador)
 		if (authUser?.rol_plataforma === 'Administrador') {
 			pathRol+="administrador";
 		}

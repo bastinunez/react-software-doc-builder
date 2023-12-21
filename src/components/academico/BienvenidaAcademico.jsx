@@ -61,7 +61,7 @@ const BienvenidaAcademico = () => {
                   </div>
                   <div>
                     <div>
-                      <i class="bi bi-bell" style={{fontSize: "3rem"}}></i>
+                      <i className="bi bi-bell" style={{fontSize: "3rem"}}></i>
                     </div>
                     <div>
                       Tienes X notificaciones de proyectos
