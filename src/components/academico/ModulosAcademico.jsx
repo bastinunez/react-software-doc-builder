@@ -23,7 +23,7 @@ const ModulosAcademico = () => {
     }
     );
     if (response.data.filas){
-      console.log(response.data.filas)
+      //console.log(response.data.filas)
       setModulos(response.data.filas)
       setYearList([...new Set(response.data.filas.map(item => item.instanciaModuloPK.ano))])
       setSemestreList([...new Set(response.data.filas.map(item => item.instanciaModuloPK.semestre))])

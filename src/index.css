@@ -217,6 +217,9 @@ h3{
   text-overflow: ellipsis;  /* Mostrar puntos suspensivos cuando el texto se corta */
 }
 
+.imagen-logo{
+  width: 3.5rem;
+}
 .imagen-fondo{
   background-image: url('/fondo_bienvenida.png');
   background-size: cover;

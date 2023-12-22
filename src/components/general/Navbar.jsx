@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 import { Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import {useAuth} from '../../context/AuthContext'
 import axios from 'axios';
@@ -91,8 +92,8 @@ export const NavBarExport = () => {
 	return (
 		<>
 			<header className='w-100'>
-				<Navbar className='colorPrimario'>
-					<Container className='w-100 p-0 ps-lg-4 pe-lg-4' style={{maxWidth:"none"}}>
+				<Navbar className='colorPrimario p-0'>
+					<Container className='w-100 mt-1 mb-1 ps-lg-4 pe-lg-4' style={{maxWidth:"none"}}>
 						{
 							authUser ? 
 							<Button  variant="primary" className="me-lg-3 me-1" onClick={handleShow}>
@@ -103,7 +104,9 @@ export const NavBarExport = () => {
 							<></>
 						}
 						
-						<Navbar.Brand href={pathRol} className="ms-lg-2 ms-1">LOGO</Navbar.Brand>
+						<Navbar.Brand href={pathRol} className="ms-lg-2 ms-1 p-0">
+							<Image src="/public/logo.png" className='imagen-logo' />
+						</Navbar.Brand>
 						<Navbar.Toggle></Navbar.Toggle>
 						<Navbar.Collapse className="justify-content-end">
 							<div>
