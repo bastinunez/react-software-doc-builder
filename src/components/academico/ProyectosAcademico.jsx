@@ -22,14 +22,12 @@ const ProyectosAcademico = () => {
 
 
   const getProyectos = async () => {
-    const response = await axios.get(`http://${direccionIP}/proyecto/`)
+    const response = await axios.get(`http://${direccionIP}/proyecto/`);
     if (response.data.filas){
-      //console.log(response.data.filas)
       const proyectosFiltrados = response.data.filas.filter(proyecto => {
         // Verifica si el nombre del módulo coincide con el nombre deseado
         return proyecto.proyectoPK.instanciaModulo.instanciaModuloPK.modulo.nombre === modulo.instanciaModuloPK.modulo.nombre;
       });
-      console.log(proyectosFiltrados)
       setProyectos(proyectosFiltrados)
     }
   }

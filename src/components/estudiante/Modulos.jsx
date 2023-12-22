@@ -45,13 +45,11 @@ const ModulosEstudiante = () => {
 			setSemestre(semestre);
 		}
 		//console.log("filtrador:",modulos.filter(instancia => instancia.instanciaModuloPK.ano === ano && instancia.instanciaModuloPK.semestre === semestre))
-    console.log('ano:' + ano + ',semestre:' + semestre);
     
     const modulosFiltrados = modulos.filter( (instancia) =>
       instancia.instanciaModulo.instanciaModuloPK.ano === ano && 
       instancia.instanciaModulo.instanciaModuloPK.semestre === semestre
     );
-    console.log(modulosFiltrados);
 		return modulosFiltrados; 
 	};
 
