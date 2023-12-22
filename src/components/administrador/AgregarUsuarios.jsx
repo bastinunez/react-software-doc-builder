@@ -34,11 +34,11 @@ const AgregarUsuarios = () => {
       const workbook = XLSX.read(data, { type: "array" });
       // Suponiendo que el primer sheet (hoja) contiene los datos
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const datos = XLSX.utils.sheet_to_json(sheet);
+      const usuarios = XLSX.utils.sheet_to_json(sheet);
 
       let cargarUsuarios = true;
       // Ahora puedes procesar los datos y realizar la llamada a la API
-      for (const usuario of datos) {
+      for (const usuario of usuarios) {
         if (!usuario.apellidos || !usuario.nombres || !usuario.rut || !usuario.contrasena || !usuario.email || !usuario.nombreRol || !usuario.universidadId) {
           setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
           setCuerpoModal('Hay datos vacíos para un usuario, revisa el archivo');
@@ -47,8 +47,8 @@ const AgregarUsuarios = () => {
           return;
         } else {
           try {
-            const response = await axios.get(`http://${direccionIP}/usuario/${usuario.rut}`);
-            if (response.data.usuario) {
+            const response = await axios.get(`http://${direccionIP}/usuario/findByRut?${usuario.rut}`);
+            if (response.data.filas) {
               setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
               setCuerpoModal(`El usuario ${usuario.rut} ya existe en la base de datos`);
               mostrarModal();
@@ -63,24 +63,24 @@ const AgregarUsuarios = () => {
 
       if(cargarUsuarios){
         try {
-          datos.forEach(async (usuario) => {
-            const response = await axios.post(
-              `http://${direccionIP}/usuario/guardar`, {
-                rut: usuario.rut,
-                nombres: usuario.nombres,
-                apellidos: usuario.apellidos,
-                contrasena: usuario.contrasena,
-                email: usuario.email,
-                nombreRol: usuario.nombreRol,
-                abreviacionUniversidad: usuario.universidadId,
-              }
-            );
+          usuarios.forEach(async (usuario) => {
+            const response = await axios.post( `http://${direccionIP}/usuario/guardar`, {
+              rut: usuario.rut,
+              nombres: usuario.nombres,
+              apellidos: usuario.apellidos,
+              contrasena: usuario.contrasena,
+              email: usuario.email,
+              nombreRol: usuario.nombreRol,
+              abreviacionUniversidad: usuario.universidadId,
+            });
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
             setCuerpoModal("Se han cargado correctamente los usuarios"); 
             mostrarModal();
           });
         } catch (error) {
-          console.err(error);
+          setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+          setCuerpoModal('Ocurrió un error al cargar los usuarios');
+          mostrarModal();
         }
       }
     }
@@ -98,10 +98,10 @@ const AgregarUsuarios = () => {
   }
 
   const getTemplate = () => {
-    const path = '../../assets/plantilla.xlsx';
+    const path = '../../assets/plantilla-usuarios.xlsx';
     const link = document.createElement('a');
     link.href = path;
-    link.download = 'plantilla.xlsx';
+    link.download = 'plantilla-usuarios.xlsx';
 
     document.body.appendChild(link);
     link.click();
