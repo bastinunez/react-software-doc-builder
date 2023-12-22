@@ -13,13 +13,27 @@ const BienvenidaEstudiante = () => {
       </div>
 
       <div className='container border-0 text-center  mb-3 mt-3 p-1'>
-        <div className='box-titulo-bienvenida'>
+        <div className='mb-1 pb-2 pt-2 box-titulo-bienvenida'>
           <h3>Acceso rapido</h3>
         </div>
-        <div className='pb-3 pt-3 d-flex justify-content-around'>
-          <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Ver mis cursos</Link></h5>
-          <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Acceso Directo 2</Link></h5>
-          <h5 className="d-flex texto-restringido"><Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Acceso Directo 3</Link></h5>
+        <div className='pb-3 pt-1 justify-content-around'>
+          <Row xs={1} md={2} lg={3} className='m-3 g-3'>
+            <Col  className='justify-content-center'>
+              <div className="d-flex texto-restringido">
+                <Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Ver mis cursos</Link>
+              </div>
+            </Col>
+            <Col>
+              <div className="d-flex texto-restringido">
+                <Link className='link-acceso-directo' to="#"><i className="bi bi-people me-2"></i>Acceso Directo 2</Link>
+              </div>
+            </Col>
+            <Col>
+              <div className="d-flex texto-restringido">
+                <Link className='link-acceso-directo' to="#"><i className="bi bi-card-checklist me-2"></i>Acceso Directo 3</Link>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
 
@@ -29,7 +43,7 @@ const BienvenidaEstudiante = () => {
             <h3>Resumen</h3>
           </div>
           <div className='pb-4 pt-3  d-flex justify-content-center w-100'>
-            <Row xs={1} md={1} lg={2} className='m-3 g-5'>
+            <Row xs={1} md={1} lg={2} className='m-3 g-5 w-100'>
               <Col className='mb-4'>
                 <div>
                   <div>

@@ -22,7 +22,8 @@ const VerPerfil = () => {
 
     const getUsuario = async () => {
         try{
-            const response = await axios.get(`http://${direccionIP}/usuario/rut/${authUser.usuario.rut}`);
+            const response = await axios.get(`http://${direccionIP}/usuario/rut/${authUser.rol_plataforma? authUser.rut:authUser.usuario.rut}`);
+            //console.log(response.data.filas)
             if (response.data.filas){
                 setUsuario(response.data.filas)
                 setNombre(response.data.filas.nombres)
@@ -35,7 +36,7 @@ const VerPerfil = () => {
         }
         
     }
-
+    //console.log(authUser)
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try{
@@ -46,7 +47,20 @@ const VerPerfil = () => {
                 contrasena: usuario.contrasena,
                 email: usuario.email
             });
-            console.log(response.data)
+            if (authUser.usuario?.rol_plataforma){
+                const datos = {
+                    usuario:response.data.filas,
+                    rol:{
+                        nombre: authUser.rol.nombre
+                    },
+                    universidad:{abreviacion:authUser.universidad.abreviacion}
+                }
+                //console.log(datos)
+                updateAuth(datos)
+            }else{
+                updateAuth(response.data.filas)
+            }
+            
         }
         catch(error){
             console.log(error)
@@ -55,12 +69,7 @@ const VerPerfil = () => {
     
     useEffect( () => {
         getUsuario();
-        // const respuesta = getUsuario();
-        // setUsuario(respuesta)
-        // setNombre(respuesta.nombres)
-        // setApellido(respuesta.apellidos)
     },[])
-
 
 
     return (
@@ -73,7 +82,7 @@ const VerPerfil = () => {
                         </div>
                         <div className='align-items-center d-flex ms-3'>
                             <h3 className='p-0 m-0 align-items-center'>
-                                Hola {authUser.usuario.nombres}
+                                Hola {authUser.rol_plataforma? authUser.nombres:authUser.usuario.nombres}
                             </h3>
                         </div>
                         
@@ -86,7 +95,8 @@ const VerPerfil = () => {
                                 <Form.Group className="mb-3" controlId="form-rut" style={{maxWidth:"150px"}}>
                                     <Form.Label>Rut</Form.Label>
                                     {/* <Form.Label>{authUser.usuario.rut}</Form.Label> */}
-                                    <Form.Control disabled type="text" placeholder={authUser.usuario.rut} defaultValue={rut}/>
+                                    <Form.Control disabled type="text" 
+                                    placeholder={authUser.rol_plataforma? authUser.rut:authUser.usuario.nombres} defaultValue={rut}/>
                                 </Form.Group>
                             
                         </Row>
@@ -94,13 +104,15 @@ const VerPerfil = () => {
                             <Col>
                                 <Form.Group className="mb-3" controlId="form-nombre">
                                     <Form.Label>Nombre</Form.Label>
-                                    <Form.Control type="text" placeholder={authUser.usuario.nombres} defaultValue={nombre} onChange={(e) => setNombre(e.target.value)}/>
+                                    <Form.Control type="text" 
+                                    placeholder={authUser.rol_plataforma? authUser.nombres:authUser.usuario.nombres} defaultValue={nombre} onChange={(e) => setNombre(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="form-apellido">
                                     <Form.Label>Apellido</Form.Label>
-                                    <Form.Control type="text" placeholder={authUser.usuario.apellidos} defaultValue={apellido} onChange={(e) => setApellido(e.target.value)}/>
+                                    <Form.Control type="text" 
+                                    placeholder={authUser.rol_plataforma? authUser.rut:authUser.usuario.nombres} defaultValue={apellido} onChange={(e) => setApellido(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                         </Row>

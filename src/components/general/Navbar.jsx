@@ -7,7 +7,7 @@ import {useAuth} from '../../context/AuthContext'
 import axios from 'axios';
 
 export const NavBarExport = () => {
-	const {filtrador,setShowSidebar,authUser, updateAuth,direccionIP} = useAuth()
+	const {filtrador,setFiltrador,setShowSidebar,authUser, updateAuth,direccionIP} = useAuth()
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShowSidebar(false);
@@ -18,8 +18,10 @@ export const NavBarExport = () => {
 	var pathRol="/"
 	const onLogout = () => {
 		updateAuth('')
+		setFiltrador(null)
 		localStorage.setItem("auth", null);
 		localStorage.setItem("logged", false);
+		localStorage.setItem("filtrador",null)
 		navigate('/login', {
 		});
 	};
@@ -65,6 +67,7 @@ export const NavBarExport = () => {
 		
 	}
 	useEffect(()=>{
+		//console.log("filtrador:",filtrador)
 		if (authUser?.rol_plataforma === 'Administrador') {
 			pathRol+="administrador";
 		}
@@ -107,10 +110,10 @@ export const NavBarExport = () => {
 								{authUser ? (
 									<div className='container d-flex w-100'>
 										{
-											filtrador? 
+											filtrador!==null? 
 												<div className='align-items-center d-flex me-lg-2 me-1'>
-													<Button className='boton-logout d-flex align-items-center' onClick={backFiltrador}>
-														<i className="bi bi-arrow-left-circle-fill me-1"></i>
+													<Button className='boton-navbar d-flex align-items-center' onClick={backFiltrador}>
+														<i className="bi bi-arrow-left-circle-fill me-lg-1"></i>
 														<p className='texto-volver-filtrador align-items-center p-0 m-0'>Volver a Filtrador</p>
 													</Button>{' '}
 												</div>
@@ -119,15 +122,15 @@ export const NavBarExport = () => {
 										}
 										<div className='ms-lg-3 me-lg-3 me-1 align-items-center d-flex'>
 											<Navbar.Text>
-												<span className='username'>
-													<i className="bi bi-person-square me-2 me-xs-1"></i>
-													{ authUser?.rol_plataforma == 'Administrador'  ? `${authUser.nombres}`
+												<span className='username me-lg-4 me-1'>
+													<i className="bi bi-person-square  me-2"></i>
+													{ authUser?.rol_plataforma == 'Administrador'  ? `${authUser.nombres} `
 													: `${authUser.usuario.nombres}`}
 												</span>
 											</Navbar.Text>
 											{
 												authUser?.rol_plataforma != 'Administrador'?
-													<Navbar.Text className='ms-lg-5'>
+													<Navbar.Text className=''>
 														<span className='username'><i className="bi bi-mortarboard-fill  me-2 me-xs-1"></i> {authUser.universidad.abreviacion} </span>
 													</Navbar.Text>
 												:
@@ -135,7 +138,13 @@ export const NavBarExport = () => {
 											}
 										</div>
 										<div className='ms-lg-3 me-lg-3 justify-content-end d-flex'>
-											<Button className='boton-logout' onClick={onLogout}>Cerrar sesión</Button>{' '}
+											<Button className='boton-navbar d-flex align-items-center' onClick={onLogout}>
+												<i className="bi bi-box-arrow-left me-lg-1"></i>
+												<p className='texto-volver-filtrador  align-items-center p-0 m-0'>
+													Cerrar sesión
+												</p>
+												
+											</Button>
 										</div>
 									</div>
 								) : (

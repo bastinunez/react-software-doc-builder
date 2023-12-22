@@ -26,11 +26,7 @@ export const Modulos = () => {
   };
   
   const getModulosUniversidad = async () => {
-    const response = await axios.get( `http://${direccionIP}/modulo/busqueda_por_universidad`,{
-        abreviacion:authUser.universidad.abreviacion
-      }
-    );
-    console.log(response.data)
+    const response = await axios.get(`http://${direccionIP}/modulo/busqueda_por_universidad?abreviacion=${authUser.universidad.abreviacion}`);
     setModulos(response.data.filas); // Actualiza el estado con los datos obtenidos
   };
 
@@ -42,12 +38,11 @@ export const Modulos = () => {
     //Deshabilitar Módulo a la base de datos.
     try {
       const datos = {
-        abreviacionUniversidad:abreviacion,
-        nombreModulo:modulo,
-        estadoModulo:"false"
+        nombre:modulo,
+        estado:"false"
       }
       const response = await axios.patch(
-        `http://${direccionIP}/universidad/cambiar_estado_modulo`,
+        `http://${direccionIP}/modulo/cambiar_estado`,
         datos
       );
       //console.log(response.data);
@@ -63,16 +58,15 @@ export const Modulos = () => {
     //Habilitar Módulo a la base de datos.
     try {
       const datos = {
-        abreviacionUniversidad:abreviacion,
-        nombreModulo:modulo,
-        estadoModulo:"true"
+        nombre:modulo,
+        estado:"true"
       }
       const response = await axios.patch(
-        `http://${direccionIP}/universidad/cambiar_estado_modulo`,
+        `http://${direccionIP}/modulo/cambiar_estado`,
         datos
       );
       //console.log(response.data);
-      setCuerpoModal("Se ha habilitado correctamente la universidad");
+      setCuerpoModal("Se ha habilitado correctamente el modulo");
       mostrarModal();
       await getModulosUniversidad();
     } catch (error) {
@@ -88,6 +82,11 @@ export const Modulos = () => {
     setLastPath(location.pathname)
     navigate("/director/modulos/agregar",{state:{abreviacion:authUser.universidad.abreviacion}});
   };
+
+  const verInstancias = (abreviacion,modulo) => {
+    //console.log("Aqui hay que enviar los datos para obtener las instancias")
+    navigate("/director/modulos/instancia",{state:{abreviacion:abreviacion,nombreModulo:modulo}})
+  }
 
   const irEditarModulo = (abreviacion,modulo) => {
     setLastPath(location.pathname)
@@ -120,18 +119,17 @@ export const Modulos = () => {
           <Table responsive>
             <thead>
               <tr>
-                {/* <th>#</th> */}
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Habilitado</th>
                 <th>Editar</th>
-                <th className="d-flex justify-content-center">Habilitar/deshabilitar</th>
+                <th>Habilitar/deshabilitar</th>
+                <th>Ver Instancias</th>
               </tr>
             </thead>
             <tbody>
               {currentModulos.map((modulo, index) => (
                   <tr key={index} className="m-1 mt-2 align-align-items-center">
-                    {/* <td>{index}</td> */}
                     <td>{modulo.nombre}</td>
                     <td>{modulo.descripcion}</td>
                     <td>{modulo.estado ? "Si" : "No"}</td>
@@ -147,28 +145,35 @@ export const Modulos = () => {
                       </button>
                     </td>
                 
-                    <td className="d-flex justify-content-center">
-                      {modulo.estado ? (
-                        <button
-                          className="btn btn-danger"
-                          onClick={() =>
-                            deshabilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
-                          }
-                          title="Deshabilitar Módulo"
-                        >
-                          <i className="bi bi-dash"></i>
-                        </button>
-                      ) : (
-                        <button
-                          className="btn btn-success"
-                          onClick={() =>
-                            habilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
-                          }
-                          title="Habilitar Módulo"
-                        >
-                          <i className="bi bi-check"></i>
-                        </button>
-                      )}
+                    <td className="justify-content-center">
+                      <div className="d-flex justify-content-center">
+                        {modulo.estado ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                              deshabilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
+                            }
+                            title="Deshabilitar Módulo"
+                          >
+                            <i className="bi bi-dash"></i>
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-success"
+                            onClick={() =>
+                              habilitarMódulo(authUser.universidad.abreviacion,modulo.nombre,modulo.estado)
+                            }
+                            title="Habilitar Módulo"
+                          >
+                            <i className="bi bi-check"></i>
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td className="justify-content-center">
+                      <button className="btn btn-success" onClick={() => verInstancias(authUser.universidad.abreviacion,modulo.nombre)}>
+                        <i className="bi bi-box-arrow-in-right"></i>
+                      </button>
                     </td>
                   </tr>
               ))}
