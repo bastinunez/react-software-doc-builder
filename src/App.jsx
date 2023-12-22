@@ -23,6 +23,7 @@ import Universidades from './components/administrador/Universidades';
 import Usuarios from './components/administrador/Usuarios';
 import Modulos from './components/administrador/Modulos';
 import AgregarUniversidad from './components/administrador/AgregarUniversidad';
+import AgregarUniversidades from './components/administrador/AgregarUniversidades';
 import EditarUniversidad from './components/administrador/EditarUniversidad';
 import AgregarUsuario from './components/administrador/AgregarUsuario';
 import AgregarUsuarios from './components/administrador/AgregarUsuarios';
@@ -140,6 +141,7 @@ function App() {
                 
                 <Route path='universidades' element= {<Universidades />} />
                 <Route path='universidades/agregar' element={<AgregarUniversidad />} />
+                <Route path='universidades/agregar-excel' element={<AgregarUniversidades />}></Route>
                 <Route path='universidades/editar' element={<EditarUniversidad />} />
 
                 <Route path='modulos' element= {<Modulos />}/>
