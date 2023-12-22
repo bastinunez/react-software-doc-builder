@@ -96,7 +96,7 @@ function App() {
     }
 	},[])
 
-  //console.log("app auth:",authUser)
+  // console.log("app auth:",authUser)
   return (
       <Routes>
         <Route path='/login' element={<Login />} />
