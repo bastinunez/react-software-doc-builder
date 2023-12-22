@@ -112,7 +112,7 @@ const UsuariosAcademico = () => {
 	};
 
 	const irEditarUsuario = (rut, nombres, apellidos, correo, contrasena, roles) => {
-        if (rut === authUser.rut) {
+        if (rut === authUser.usuario.rut) {
             setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
             setCuerpoModal('No puedes editar tu propia cuenta');
             mostrarModal();
@@ -181,11 +181,11 @@ const UsuariosAcademico = () => {
 												className='btn btn-primary'
 												onClick={() =>
 													irEditarUsuario(
-														usuario.rut,
-														usuario.nombres,
-														usuario.apellidos,
-														usuario.email,
-														usuario.contrasena,
+														usuario.usuarioRolUniversidadUniversidadPk.usuario.rut,
+														usuario.usuarioRolUniversidadUniversidadPk.usuario.nombres,
+														usuario.usuarioRolUniversidadUniversidadPk.usuario.apellidos,
+														usuario.usuarioRolUniversidadUniversidadPk.usuario.email,
+														usuario.usuarioRolUniversidadUniversidadPk.usuario.contrasena,
 														usuario.rol_plataforma,
 													)
 												}
