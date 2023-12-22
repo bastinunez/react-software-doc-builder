@@ -105,7 +105,7 @@ const ModulosEstudiante = () => {
 							{ modulosFiltrador.map((modulo, index) => (
 								<Col key={index}>
 									<CardModulo modulo={modulo} nombre={modulo.instanciaModulo.instanciaModuloPK.modulo.nombre}
-										seccion={modulo.instanciaModulo.instanciaModuloPK.seccion}
+										seccion={modulo.instanciaModulo.instanciaModuloPK.seccion} rol={'Estudiante'}
 									/>
 								</Col>
 							))}

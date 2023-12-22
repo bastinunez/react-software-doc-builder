@@ -3,12 +3,16 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
-const CardModulo = ({nombre,seccion,modulo}) => {
+const CardModulo = ({nombre,seccion,modulo, rol}) => {
   const navigate = useNavigate()
 
   const handleSubmit = () => {
     //console.log("Aqui hay que enviar los datos para obtener las instancias")
-    navigate("/profesor/modulos/proyectos",{state:{modulo:modulo}})
+    if (rol === 'Estudiante') {
+      navigate("/estudiante/modulos/proyectos",{state:{modulo:modulo}})
+    } else if (rol === 'Profesor') {
+      navigate("/profesor/modulos/proyectos",{state:{modulo:modulo}})
+    }
   }
 
   return (

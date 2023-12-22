@@ -23,7 +23,7 @@ const ModulosAcademico = () => {
     }
     );
     if (response.data.filas){
-      //console.log(response.data.filas)
+      console.log(response.data.filas)
       setModulos(response.data.filas)
       setYearList([...new Set(response.data.filas.map(item => item.instanciaModuloPK.ano))])
       setSemestreList([...new Set(response.data.filas.map(item => item.instanciaModuloPK.semestre))])
@@ -55,7 +55,7 @@ const ModulosAcademico = () => {
   },[])
   useEffect(()=>{
     setModulosFiltrado(filtrarInstancias(year,semestre))
-  },[yearList,semestreList])
+  },[year, yearList, semestre, semestreList])
 
   return (
     <div>
@@ -63,14 +63,14 @@ const ModulosAcademico = () => {
             <div className='d-flex'>
               <div className='align-items-center d-flex'>
                 <div className='pe-1 ps-1' style={{width:"10rem"}}>
-                  <Form.Select aria-label="Default select example" onChange={(e) => setYear(e.target.value)}>
+                  <Form.Select aria-label="Default select example" onChange={(e) => setYear(parseInt(e.target.value))}>
                     {yearList.map( (year,index) => (
                       <option key={index} value={year}>{year}</option>
                     ) )}
                   </Form.Select>
                 </div>
                 <div className='pe-1 ps-1' style={{width:"10rem"}}>
-                  <Form.Select aria-label="Default select example" onChange={(e) => setSemestre(e.target.value)}>
+                  <Form.Select aria-label="Default select example" onChange={(e) => setSemestre(parseInt(e.target.value))}>
                   {semestreList.map( (semestre,index) => (
                       <option key={index} value={semestre}>{semestre}</option>
                     ))
@@ -91,7 +91,7 @@ const ModulosAcademico = () => {
               <>
                 {modulosFiltrador.map( (modulo,index) => (
                   <Col key={index}>
-                    <CardModulo modulo={modulo} nombre={modulo.instanciaModuloPK.modulo.nombre} seccion={modulo.instanciaModuloPK.seccion}/>
+                    <CardModulo modulo={modulo} nombre={modulo.instanciaModuloPK.modulo.nombre} seccion={modulo.instanciaModuloPK.seccion} rol={'Profesor'}/>
                   </Col>
                 ))}
               </>
