@@ -29,7 +29,7 @@ const ProyectosAcademico = () => {
         // Verifica si el nombre del módulo coincide con el nombre deseado
         return proyecto.proyectoPK.instanciaModulo.instanciaModuloPK.modulo.nombre === modulo.instanciaModuloPK.modulo.nombre;
       });
-      //console.log(proyectosFiltrados)
+      console.log(proyectosFiltrados)
       setProyectos(proyectosFiltrados)
     }
   }
@@ -40,7 +40,7 @@ const ProyectosAcademico = () => {
 
   useEffect( ()  => {
     getProyectos()
-  })
+  }, []);
 
   return (
     <div className='container'>
