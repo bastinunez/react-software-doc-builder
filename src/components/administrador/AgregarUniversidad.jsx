@@ -33,13 +33,10 @@ const AgregarUniversidad = () => {
         e.preventDefault();
         //Agregar universidad a la base de datos.
         try {
-            const response = await axios.post(
-                `http://${direccionIP}/universidad/guardar`,
-                {
-                    abreviacion: abreviacion,
-                    nombre: nombreUniversidad,
-                }
-            );
+            const response = await axios.post( `http://${direccionIP}/universidad/guardar`, { 
+                abreviacion: abreviacion,
+                nombre: nombreUniversidad, 
+            });
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
             setCuerpoModal("Universidad guardada exitosamente");
             mostrarModal();

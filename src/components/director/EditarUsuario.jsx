@@ -102,40 +102,22 @@ const EditarUsuarioDirector = () => {
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>RUT</Form.Label>
                             <Form.Control type="text" aria-label="Disabled input example" readOnly value={rut} onChange={(e) => setRut(e.target.value)} required/>
-                            {/* <Form.Text className="text-muted">
-                                Ingrese nombre universidad
-                            </Form.Text> */}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese nombres" value={nombresUsuario} onChange={(e) => setNombresUsuario(e.target.value)} required/>
-                            {/* <Form.Text className="text-muted">
-                                Ingrese nombre universidad
-                            </Form.Text> */}
                         </Form.Group>
                         
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Apellidos</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese apellidos" value={apellidosUsuario} onChange={(e) => setApellidosUsuario(e.target.value)} required/>
-                            {/* <Form.Text className="text-muted">
-                                Ingrese abreviación
-                            </Form.Text> */}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Correo</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese correo" value={emailUsuario} onChange={(e) => setEmailUsuario(e.target.value)} required/>
-                            {/* <Form.Text className="text-muted">
-                                Ingrese abreviación
-                            </Form.Text> */}
                         </Form.Group>
-
-                        {/* <Form.Group className="mb-3" controlId="">
-                            <Form.Label>Contraseña</Form.Label>
-                            <Form.Control type="password" placeholder="Ingrese contraseña" value={passwordUsuario} onChange={(e) => setPasswordUsuario(e.target.value)} required/>
-                            
-                        </Form.Group> */}
 
                         <div className="mb-3">
                             <div>

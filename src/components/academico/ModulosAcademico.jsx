@@ -23,7 +23,6 @@ const ModulosAcademico = () => {
     }
     );
     if (response.data.filas){
-      //console.log(response.data.filas)
       setModulos(response.data.filas)
       setYearList([...new Set(response.data.filas.map(item => item.instanciaModuloPK.ano))])
       setSemestreList([...new Set(response.data.filas.map(item => item.instanciaModuloPK.semestre))])
@@ -36,26 +35,21 @@ const ModulosAcademico = () => {
   };
 
   const filtrarInstancias = (ano, semestre) => {
-    //console.log("año:",ano,",semestre:",semestre)
     if (ano == null && semestre == null){
-      //console.log(yearList,semestreList)
       ano = yearList[yearList.length-1]
       semestre = semestreList[semestreList.length-1]
-      //console.log("año:",ano,",semestre:",semestre)
     }
-    //console.log("filtrador:",modulos.filter(instancia => instancia.instanciaModuloPK.ano === ano && instancia.instanciaModuloPK.semestre === semestre))
     return modulos.filter(
       instancia => instancia.instanciaModuloPK.ano === ano && instancia.instanciaModuloPK.semestre === semestre);
   };
 
   useEffect(()=>{
     getModulos()
-    
-    //console.log(modulosFiltrador)
-  },[])
+  }, [])
+
   useEffect(()=>{
-    setModulosFiltrado(filtrarInstancias(year,semestre))
-  },[yearList,semestreList])
+    setModulosFiltrado( filtrarInstancias(year, semestre) )
+  }, [year, yearList, semestre, semestreList])
 
   return (
     <div>
@@ -63,14 +57,14 @@ const ModulosAcademico = () => {
             <div className='d-flex'>
               <div className='align-items-center d-flex'>
                 <div className='pe-1 ps-1' style={{width:"10rem"}}>
-                  <Form.Select aria-label="Default select example" onChange={(e) => setYear(e.target.value)}>
+                  <Form.Select aria-label="Default select example" onChange={(e) => setYear(parseInt(e.target.value))}>
                     {yearList.map( (year,index) => (
                       <option key={index} value={year}>{year}</option>
-                    ) )}
+                    ))}
                   </Form.Select>
                 </div>
                 <div className='pe-1 ps-1' style={{width:"10rem"}}>
-                  <Form.Select aria-label="Default select example" onChange={(e) => setSemestre(e.target.value)}>
+                  <Form.Select aria-label="Default select example" onChange={(e) => setSemestre(parseInt(e.target.value))}>
                   {semestreList.map( (semestre,index) => (
                       <option key={index} value={semestre}>{semestre}</option>
                     ))
@@ -83,7 +77,7 @@ const ModulosAcademico = () => {
         <div>
           <Row xs={1} md={2} lg={3} className='m-3 g-3'>
             {
-              modulos.length == 0?
+              modulos.length === 0?
               <>
                 <h2>No tienes modulos asociados</h2>
               </>
@@ -91,7 +85,7 @@ const ModulosAcademico = () => {
               <>
                 {modulosFiltrador.map( (modulo,index) => (
                   <Col key={index}>
-                    <CardModulo modulo={modulo} nombre={modulo.instanciaModuloPK.modulo.nombre} seccion={modulo.instanciaModuloPK.seccion}/>
+                    <CardModulo modulo={modulo} nombre={modulo.instanciaModuloPK.modulo.nombre} seccion={modulo.instanciaModuloPK.seccion} rol={'Profesor'}/>
                   </Col>
                 ))}
               </>

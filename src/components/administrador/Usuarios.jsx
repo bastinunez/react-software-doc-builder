@@ -61,10 +61,26 @@ const Usuarios = () => {
 		}
 	};
 
+	const isAdmin = async (rut) => {
+		try {
+			const response = await axios.get(`http://${direccionIP}/usuario/findByRut?rut=${rut}`);
+			if (response.data.filas.rol_plataforma === 'Administrador') {
+				return true;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		
+		return false;
+	};
+
 	const habilitarUsuario = async (rut) => {
 		//Agregar universidad a la base de datos.
 		try {
-			const response = await axios.patch(`http://${direccionIP}/usuario/cambiar_estado?rut=${rut}&estado=true`);
+			const response = await axios.patch(`http://${direccionIP}/usuario/cambiar_estado`, {
+				rut: rut,
+				estado: true,
+			});
 			setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Usuario habilitado');
 			setCuerpoModal('Se ha habilitado correctamente el usuario');
 			mostrarModal();
@@ -76,15 +92,18 @@ const Usuarios = () => {
 
 	const deshabilitarUsuario = async (rut) => {
 		//Agregar universidad a la base de datos.
-		if (rut === '99.999.999-9') {
+		const isAdminV = await isAdmin(rut);
+		if (isAdminV) {
 			setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
 			setCuerpoModal('No se puede deshabilitar al usuario administrador');
 			mostrarModal();
 			return;
 		}
-
 		try {
-			const response = await axios.patch(`http://${direccionIP}/usuario/cambiar_estado?rut=${rut}&estado=false`);
+			const response = await axios.patch(`http://${direccionIP}/usuario/cambiar_estado`, {
+				rut: rut,
+				estado: false,
+			});
 			setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Usuario deshabilitado');
 			setCuerpoModal('Se ha deshabilitado correctamente el usuario');
 			mostrarModal();
@@ -92,6 +111,7 @@ const Usuarios = () => {
 		} catch (error) {
 			console.log(error);
 		}
+		
 	};
 
 	const navigate = useNavigate();
@@ -107,15 +127,19 @@ const Usuarios = () => {
 	};
 
 	const irEditarUsuario = (rut, nombres, apellidos, correo, contrasena, roles) => {
-		if (rut === '00.000.000-0') {
-			setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-			setCuerpoModal('No se puede editar al usuario administrador');
-			mostrarModal();
-			return;
-		}
-		navigate('/administrador/usuarios/editar', {
-			state: { rut, nombres, apellidos, contrasena, correo, roles },
+		isAdmin(rut).then((isAdminV) => {
+			if (isAdminV) {
+				setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
+				setCuerpoModal('No se puede editar al usuario administrador');
+				mostrarModal();
+				return;
+			}
+			console.log(rut, nombres, apellidos, correo, contrasena, roles);
+			navigate('/administrador/usuarios/editar', {
+				state: { rut, nombres, apellidos, contrasena, correo, roles },
+			});
 		});
+		
 	};
 
 	//<input type='checkbox' checked={universidad.estado} />
