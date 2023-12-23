@@ -21,6 +21,7 @@ const VerPerfil = () => {
 
 
     const getUsuario = async () => {
+        //console.log(authUser.rol_plataforma? authUser.rut:authUser.usuario.rut)
         try{
             const response = await axios.get(`http://${direccionIP}/usuario/rut/${authUser.rol_plataforma? authUser.rut:authUser.usuario.rut}`);
             //console.log(response.data.filas)
@@ -112,7 +113,7 @@ const VerPerfil = () => {
                                 <Form.Group className="mb-3" controlId="form-apellido">
                                     <Form.Label>Apellido</Form.Label>
                                     <Form.Control type="text" 
-                                    placeholder={authUser.rol_plataforma? authUser.rut:authUser.usuario.nombres} defaultValue={apellido} onChange={(e) => setApellido(e.target.value)}/>
+                                    placeholder={authUser.rol_plataforma? authUser.apellidos:authUser.usuario.apellidos} defaultValue={apellido} onChange={(e) => setApellido(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                         </Row>
