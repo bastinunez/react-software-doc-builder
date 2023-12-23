@@ -267,3 +267,7 @@ h3{
     display: none;
   }
 }
+
+.content-box-seccion{
+  padding: 2rem;
+}

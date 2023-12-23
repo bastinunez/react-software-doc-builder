@@ -47,6 +47,7 @@ import AcademicoDashboard from './components/academico/AcademicoDashboard'
 import BienvenidoAcademico from './components/academico/BienvenidaAcademico'
 import ModulosAcademico from './components/academico/ModulosAcademico'
 import ProyectosAcademico from './components/academico/ProyectosAcademico'
+import ProyectoAcademico from './components/academico/ProyectoAcademico'
 
 // Estudiante
 import EstudianteDashboard from './components/estudiante/EstudianteDashboard';
@@ -124,6 +125,7 @@ function App() {
                 <Route path='perfil' element = {<VerPerfil />} />
                 <Route path='modulos' element = {<ModulosAcademico />}/>
                 <Route path='modulos/proyectos' element = {<ProyectosAcademico />} />
+                <Route path='modulos/proyectos/proyecto' element = {<ProyectoAcademico />} />
               </Route> 
             </Route>
 
