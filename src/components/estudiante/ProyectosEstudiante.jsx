@@ -15,7 +15,7 @@ const ProyectosEstudiante = () => {
 
   const [proyectos,setProyectos] = useState([])
   const [modulo,setModulo] = useState(location.state.modulo)
-
+  console.log(modulo)
   const [yearList,setYearList] = useState([])
   const [semestre,setSemestre] = useState(null)
   const [semestreList,setSemestreList] = useState([])

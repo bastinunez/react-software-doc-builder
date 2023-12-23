@@ -3,24 +3,21 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
+const CardProyecto = ({nombre, proyecto}) => {
   const navigate = useNavigate()
   const {showSidebar,setShowSidebar, authUser,direccionIP} = useAuth()
-  //console.log(proyecto)
+  console.log(proyecto)
 
   const handleSubmit = () => {
     //console.log(proyecto)
     //console.log("Aqui hay que enviar los datos para obtener las instancias")
     if (authUser.rol.nombre === 'Estudiante') {
-      navigate("/estudiante/modulos/proyectos/proyecto",{state:{proyecto:proyecto}})
+      navigate("/estudiante/modulos/proyectos/seccion",{state:{proyecto:proyecto}})
     } else if (authUser.rol.nombre === 'Profesor') {
       navigate("/profesor/modulos/proyectos/proyecto",{state:{proyecto:proyecto}})
     }
   }
-
-const CardProyecto = ({nombre, proyecto, modulo}) => {
-  const irHaciaProyecto = () => {
-    navigate('/estudiante/modulos/proyectos/seccion', {state: {proyecto: proyecto}, state: {modulo: modulo}});
-  }
+  
   return (
     <div className=''>
       <button className='estilo-card h-auto' onClick={handleSubmit}>
@@ -28,7 +25,7 @@ const CardProyecto = ({nombre, proyecto, modulo}) => {
               <div className='grid-card-1'>
               </div>
               <div className='grid-card-2'>
-                <h4 onClick={irHaciaProyecto}>{nombre}</h4>
+                <h4>{nombre}</h4>
               </div>
           </div>
       </button>

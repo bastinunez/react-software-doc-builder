@@ -5,7 +5,7 @@ import { Editor } from '@tinymce/tinymce-react';
 const SeccionDocumento = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const modulo = location.state.modulo;
+  const modulo = location.state.proyecto.proyectoPK;
   const proyecto = location.state.proyecto;
 
 	const editorRef = useRef(null);
