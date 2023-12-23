@@ -105,7 +105,7 @@ export const NavBarExport = () => {
 						}
 						
 						<Navbar.Brand href={pathRol} className="ms-lg-2 ms-1 p-0">
-							<Image src="/public/logo.png" className='imagen-logo' />
+							<Image src="/logo.png" className='imagen-logo' />
 						</Navbar.Brand>
 						<Navbar.Toggle></Navbar.Toggle>
 						<Navbar.Collapse className="justify-content-end">
