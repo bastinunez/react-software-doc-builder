@@ -7,7 +7,7 @@ import VentanaModal from '../general/VentanaModal';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const AgregarUsuarioDirector = () => {
+const AgregarUsuario = () => {
     const {showSidebar,setShowSidebar, authUser,lastPath,setLastPath,direccionIP} = useAuth()
     const [rut, setRut] = useState("");
     const [nombresUsuario,setNombresUsuario] = useState("");
@@ -15,7 +15,7 @@ const AgregarUsuarioDirector = () => {
     const [passwordUsuario, setPasswordUsuario] = useState("");
     const [emailUsuario,setEmailUsuario] = useState("");
     const [nombreRol, setNombreRol] = useState();
-    const [universidades, setUniversidad] = useState([]);
+    const [universidades, setUniversidades] = useState([]);
     
     // Ventana modal
     const [showModal, setShowModal] = useState(false);
@@ -28,13 +28,24 @@ const AgregarUsuarioDirector = () => {
         setShowModal(true)
     };
 
+    useEffect(() => {
+        const fetchUniversidades = async () => {
+        try {
+            const response = await axios.get(`http://${direccionIP}/universidad/habilitadas`);
+            setUniversidades(response.data.filas);
+        } catch (error) {
+            console.error("Hubo un problema al obtener las universidades: ", error);
+        }
+        };
+        fetchUniversidades();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        if(authUser.universidad.abreviacion === "" | nombreRol === ""){
+        if(nombreRol === ""){
             setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-            setCuerpoModal("Falta la universidad y/o rol"); 
+            setCuerpoModal("Falta el rol"); 
             mostrarModal(); 
             return;
         }
@@ -85,41 +96,28 @@ const AgregarUsuarioDirector = () => {
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>RUT</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese rut" value={rut} onChange={(e) => setRut(e.target.value)} required />
-                            {/* <Form.Text className="text-muted">
-                                Ingrese nombre universidad
-                            </Form.Text> */}
+                            
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese nombres" onChange={(e) => setNombresUsuario(e.target.value)} required />
-                            {/* <Form.Text className="text-muted">
-                                Ingrese nombre universidad
-                            </Form.Text> */}
+                            
                         </Form.Group>
                         
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Apellidos</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese apellidos"  onChange={(e) => setApellidosUsuario(e.target.value)} required />
-                            {/* <Form.Text className="text-muted">
-                                Ingrese abreviación
-                            </Form.Text> */}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Correo</Form.Label>
                             <Form.Control type="text" placeholder="Ingrese correo"  onChange={(e) => setEmailUsuario(e.target.value)} required />
-                            {/* <Form.Text className="text-muted">
-                                Ingrese abreviación
-                            </Form.Text> */}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Contraseña</Form.Label>
                             <Form.Control type="password" placeholder="Ingrese contraseña"  onChange={(e) => setPasswordUsuario(e.target.value)} required />
-                            {/* <Form.Text className="text-muted">
-                                Ingrese abreviación
-                            </Form.Text> */}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
@@ -132,7 +130,6 @@ const AgregarUsuarioDirector = () => {
                             </Form.Select>
                         </Form.Group>
                         
-
                         <Button variant="primary" type="submit">
                             Agregar
                         </Button>
@@ -147,4 +144,4 @@ const AgregarUsuarioDirector = () => {
   )
 }
 
-export default AgregarUsuarioDirector
+export default AgregarUsuario

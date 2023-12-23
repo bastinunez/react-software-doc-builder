@@ -8,7 +8,7 @@ import VentanaModal from '../general/VentanaModal';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 
-const AgregarUsuarios = () => {
+const AgregarUniversidades = () => {
   const {showSidebar, setShowSidebar, authUser, lastPath, setLastPath, direccionIP} = useAuth()
   const inputRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
@@ -34,53 +34,47 @@ const AgregarUsuarios = () => {
       const workbook = XLSX.read(data, { type: "array" });
       // Suponiendo que el primer sheet (hoja) contiene los datos
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const usuarios = XLSX.utils.sheet_to_json(sheet);
+      const universidades = XLSX.utils.sheet_to_json(sheet);
 
-      let cargarUsuarios = true;
+      let cargarUniversidades = true;
       // Ahora puedes procesar los datos y realizar la llamada a la API
-      for (const usuario of usuarios) {
-        if (!usuario.apellidos || !usuario.nombres || !usuario.rut || !usuario.contrasena || !usuario.email || !usuario.nombreRol || !usuario.universidadId) {
+      for (const universidad of universidades) {
+        if (!universidad.abreviacion || !universidad.nombre) {
           setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-          setCuerpoModal('Hay datos vacíos para un usuario, revisa el archivo');
+          setCuerpoModal('Hay datos vacíos, revisa el archivo');
           mostrarModal();
-          cargarUsuarios = false;
+          cargarUniversidades = false;
           return;
         } else {
           try {
-            const response = await axios.get(`http://${direccionIP}/usuario/findByRut?${usuario.rut}`);
+            const response = await axios.get( `http://${direccionIP}/universidad/abreviacion/${universidad.abreviacion}` );
+            console.log(response.data.filas);
             if (response.data.filas) {
               setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-              setCuerpoModal(`El usuario ${usuario.rut} ya existe en la base de datos`);
+              setCuerpoModal(`La universidad ${universidad.abreviacion} ya existe en la base de datos`);
               mostrarModal();
-              cargarUsuarios = false;
+              cargarUniversidades = false;
               return;
             }
           } catch (error) {
-            console.error(error);
+            setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
           }
         }
       }
 
-      if(cargarUsuarios){
+      if(cargarUniversidades){
         try {
-          usuarios.forEach(async (usuario) => {
-            const response = await axios.post( `http://${direccionIP}/usuario/guardar`, {
-              rut: usuario.rut,
-              nombres: usuario.nombres,
-              apellidos: usuario.apellidos,
-              contrasena: usuario.contrasena,
-              email: usuario.email,
-              nombreRol: usuario.nombreRol,
-              abreviacionUniversidad: usuario.universidadId,
+          universidades.forEach(async (universidad) => {
+            const response = await axios.post( `http://${direccionIP}/universidad/guardar`, { 
+              abreviacion: universidad.abreviacion,
+              nombre: universidad.nombre, 
             });
             setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
-            setCuerpoModal("Se han cargado correctamente los usuarios"); 
+            setCuerpoModal("Se han cargado correctamente las universidades"); 
             mostrarModal();
           });
         } catch (error) {
-          setTituloModal('<span class="bi bi-exclamation-triangle text-danger mx-2"></span>Error');
-          setCuerpoModal('Ocurrió un error al cargar los usuarios');
-          mostrarModal();
+          console.err(error);
         }
       }
     }
@@ -89,7 +83,7 @@ const AgregarUsuarios = () => {
   const navigate = useNavigate();
 
   const volver = () => {
-      navigate('/administrador/usuarios');
+      navigate('/administrador/universidades');
   }
 
   const borrarSeleccion = () => {
@@ -98,10 +92,10 @@ const AgregarUsuarios = () => {
   }
 
   const getTemplate = () => {
-    const path = '../../assets/plantilla-usuarios.xlsx';
+    const path = '../../assets/plantilla-universidades.xlsx';
     const link = document.createElement('a');
     link.href = path;
-    link.download = 'plantilla-usuarios.xlsx';
+    link.download = 'plantilla-universidades.xlsx';
 
     document.body.appendChild(link);
     link.click();
@@ -112,7 +106,7 @@ const AgregarUsuarios = () => {
   return (
     <div>
       <div>
-        <h1 className="text-center">Agregar Usuarios</h1>
+        <h1 className="text-center">Agregar Universidades</h1>
       </div>
       <button className='btn btn-primary' onClick={volver}>Volver atrás</button>
       <div className="w-100 d-flex justify-content-center ">
@@ -132,7 +126,7 @@ const AgregarUsuarios = () => {
               </Form.Group>
 
               <Button className="mx-1 btn btn-primary" type="submit" disabled={!archivo}>
-                Agregar usuarios
+                Agregar universidades
               </Button>
               <Button className="mx-1 btn btn-secondary" onClick={borrarSeleccion}>
                 Borrar selección
@@ -156,4 +150,4 @@ const AgregarUsuarios = () => {
     </div>
   );
 };
-export default AgregarUsuarios;
+export default AgregarUniversidades;

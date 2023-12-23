@@ -30,7 +30,6 @@ const Universidades = () => {
     const response = await axios.get(
       `http://${direccionIP}/universidad/`
     );
-    console.log(response.data)
     setUniversidades(response.data.filas); // Actualiza el estado con los datos obtenidos
   };
 
@@ -72,13 +71,11 @@ const Universidades = () => {
   const habilitarUniversidad = async (abreviacion) => {
     //Agregar universidad a la base de datos.
     try {
-      const response = await axios.patch(
-        `http://${direccionIP}/universidad/cambiar_estado`,
-          {
-            abreviacion: abreviacion,
-            estado: true
-          }
-      );
+      const response = await axios.patch( `http://${direccionIP}/universidad/cambiar_estado`, {
+        abreviacion: abreviacion,
+        estado: true
+      });
+      
       if (response.status === 200) {
         setTituloModal('<span class="bi bi-check-circle text-success mx-2"></span>Éxito');
         setCuerpoModal("Se ha habilitado correctamente la universidad");
@@ -105,6 +102,10 @@ const Universidades = () => {
     navigate("/administrador/universidades/agregar");
   };
 
+  const irAgregarUniversidades = () => {
+    navigate('/administrador/universidades/agregar-excel');
+  };
+
   const irEditarUniversidad = (abreviacion) => {
     navigate("/administrador/universidades/editar", {
       state: { parametro: abreviacion },
@@ -122,6 +123,14 @@ const Universidades = () => {
       <div>
         <div>
           <div className="bg-white w-100 justify-content-end d-flex p-3">
+            <button
+							className='btn btn-primary border-0 rounded-2 p-1 d-flex text-white mx-2'
+							onClick={irAgregarUniversidades}>
+							<div className='p-1'>
+								<i className='bi bi-plus-circle'></i>
+							</div>
+							<div className='p-1'>Agregar universidades</div>
+						</button>
             <button
               className="btn btn-primary border-0 rounded-2 p-1 d-flex text-white"
               onClick={irAgregarUniversidad}

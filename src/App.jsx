@@ -23,6 +23,7 @@ import Universidades from './components/administrador/Universidades';
 import Usuarios from './components/administrador/Usuarios';
 import Modulos from './components/administrador/Modulos';
 import AgregarUniversidad from './components/administrador/AgregarUniversidad';
+import AgregarUniversidades from './components/administrador/AgregarUniversidades';
 import EditarUniversidad from './components/administrador/EditarUniversidad';
 import AgregarUsuario from './components/administrador/AgregarUsuario';
 import AgregarUsuarios from './components/administrador/AgregarUsuarios';
@@ -31,7 +32,7 @@ import EditarUsuario from './components/administrador/EditarUsuario';
 // Jefe de Carrera
 import JefeCarreraDashboard from './components/director/JefeCarreraDashboard';
 import BienvenidaDirector from './components/director/BienvenidaDirector';
-import {UsuariosAcademico} from './components/director/Usuarios';
+import UsuariosAcademico from './components/director/Usuarios';
 import AgregarUsuarioDirector from './components/director/AgregarUsuario';
 import EditarUsuarioDirector from './components/director/EditarUsuario';
 import {Modulos as ModulosDirector} from './components/director/Modulos';
@@ -95,7 +96,7 @@ function App() {
     }
 	},[])
 
-  //console.log("app auth:",authUser)
+  // console.log("app auth:",authUser)
   return (
       <Routes>
         <Route path='/login' element={<Login />} />
@@ -152,6 +153,7 @@ function App() {
                 
                 <Route path='universidades' element= {<Universidades />} />
                 <Route path='universidades/agregar' element={<AgregarUniversidad />} />
+                <Route path='universidades/agregar-excel' element={<AgregarUniversidades />}></Route>
                 <Route path='universidades/editar' element={<EditarUniversidad />} />
 
                 <Route path='modulos' element= {<Modulos />}/>
