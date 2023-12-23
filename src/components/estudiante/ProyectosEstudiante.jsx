@@ -57,7 +57,7 @@ const ProyectosEstudiante = () => {
               <>
               {proyectos.map( (proyecto,index) => (
                 <Col key={index}>
-                  <CardProyecto nombre={proyecto.proyectoPK.nombre} proyecto={proyecto} />
+                  <CardProyecto nombre={proyecto.proyectoPK.nombre} proyecto={proyecto} modulo={modulo} />
                 </Col>
               ))}
               </>
