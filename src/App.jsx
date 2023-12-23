@@ -53,6 +53,7 @@ import EstudianteDashboard from './components/estudiante/EstudianteDashboard';
 import BienvenidaEstudiante from './components/estudiante/BienvenidaEstudiante';
 import ModulosEstudiante from './components/estudiante/Modulos';
 import ProyectosEstudiante from './components/estudiante/ProyectosEstudiante';
+import SeccionDocumento from './components/estudiante/SeccionDocumento';
 
 
 function App() {
@@ -113,6 +114,7 @@ function App() {
                 <Route path='perfil' element = {<VerPerfil />} />
                 <Route path='modulos' element = {<ModulosEstudiante />} />
                 <Route path='modulos/proyectos' element = {<ProyectosEstudiante />} />
+                <Route path='modulos/proyectos/seccion' element={<SeccionDocumento />} /> 
               </Route>
             </Route>
 
