@@ -23,7 +23,7 @@ const VerPerfil = () => {
     const getUsuario = async () => {
         //console.log(authUser.rol_plataforma? authUser.rut:authUser.usuario.rut)
         try{
-            const response = await axios.get(`http://${direccionIP}/usuario/rut/${authUser.rol_plataforma? authUser.rut:authUser.usuario.rut}`);
+            const response = await axios.get(`http://${direccionIP}/usuario/findByRut?rut=${authUser.rol_plataforma? authUser.rut:authUser.usuario.rut}`);
             //console.log(response.data.filas)
             if (response.data.filas){
                 setUsuario(response.data.filas)
