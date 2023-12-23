@@ -96,7 +96,7 @@ const VerPerfil = () => {
                                     <Form.Label>Rut</Form.Label>
                                     {/* <Form.Label>{authUser.usuario.rut}</Form.Label> */}
                                     <Form.Control disabled type="text" 
-                                    placeholder={authUser.rol_plataforma? authUser.rut:authUser.usuario.nombres} defaultValue={rut}/>
+                                    placeholder={authUser.rol_plataforma? authUser.rut:authUser.usuario.rut} defaultValue={rut}/>
                                 </Form.Group>
                             
                         </Row>
